@@ -155,3 +155,28 @@ Stage Summary:
 - Mobile responsive at 390px with editorial full-screen navigation
 - Zero lint errors, zero console errors
 - Asset placeholder system working correctly (shows filenames for designer replacement)
+---
+Task ID: 11
+Agent: Main Orchestrator
+Task: Fix Shop Zainab's Look placeholder state — hotspot rendering, mobile UX, responsive positioning
+
+Work Log:
+- Diagnosed 4 bugs: (1) no image load state propagation, (2) undefined sheetRef, (3) 20px mobile tap targets, (4) non-standard CSS class
+- Added onImageLoad/onError callbacks to ZaiImage.tsx for parent load-state awareness
+- Exported extractFilename utility from ZaiImage.tsx
+- Rewrote ShopTheLook.tsx with image load gate: showHotspots = imageLoaded && !imageErrored
+- Hotspots wrapped in AnimatePresence with staggered entry (0.08s per hotspot)
+- Fixed BottomSheet → ProductDrawer: proper useRef, drag-to-dismiss, safe-area-inset-bottom padding
+- Mobile tap targets: 20px → 44px (w-11 h-11), meets WCAG minimum
+- Added mobile hotspot labels (e.g. "LIPS", "EYES") beside each tap target
+- Removed overflow-hidden from image container (was clipping desktop tooltips)
+- Hint text (HOVER/TAP TO EXPLORE) now conditional on showHotspots
+
+Stage Summary:
+- Gold hotspots NEVER render when image is missing, loading, or failed — only placeholder with filename + description shown
+- Hotspots render only after real image has successfully loaded (onImageLoad callback)
+- All 5 hotspots verified: LASHES, EYES, COMPLEXION, LIPS, OUTFIT
+- Desktop: hover tooltips with product info and action buttons
+- Mobile: 44px tap targets with labels + spring-animated product drawer with drag-to-dismiss
+- Hotspot positioning: percentage-based relative to image container (not viewport)
+- Zero lint errors, zero console errors, browser-verified on desktop (1920px) and mobile (iPhone 14)

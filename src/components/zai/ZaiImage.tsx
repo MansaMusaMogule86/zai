@@ -9,6 +9,10 @@ interface ZaiImageProps extends Omit<ImageProps, 'onError'> {
   brand?: 'zai' | 'beaute' | 'maison' | 'house';
   ratio?: string;
   description?: string;
+  /** Called when the underlying <img> finishes loading successfully. */
+  onImageLoad?: () => void;
+  /** Called when the underlying <img> fails to load (before placeholder is shown). */
+  onImageError?: () => void;
 }
 
 /**
@@ -16,7 +20,7 @@ interface ZaiImageProps extends Omit<ImageProps, 'onError'> {
  * e.g. "/assets/zai/01_zainab/hero/zainab_hero_dark_desktop_01.webp"
  *  → "zainab_hero_dark_desktop_01.webp"
  */
-function extractFilename(src: string): string {
+export function extractFilename(src: string): string {
   const parts = src.split('/');
   return parts[parts.length - 1] ?? src;
 }
@@ -29,13 +33,20 @@ export default function ZaiImage({
   description,
   className,
   alt,
+  onImageLoad,
+  onImageError,
   ...rest
 }: ZaiImageProps) {
   const [hasError, setHasError] = useState(false);
 
   const handleError = useCallback(() => {
     setHasError(true);
-  }, []);
+    onImageError?.();
+  }, [onImageError]);
+
+  const handleLoad = useCallback(() => {
+    onImageLoad?.();
+  }, [onImageLoad]);
 
   if (hasError) {
     return (
@@ -55,6 +66,7 @@ export default function ZaiImage({
       alt={alt ?? ''}
       className={className}
       onError={handleError}
+      onLoad={handleLoad}
       unoptimized
       {...rest}
     />

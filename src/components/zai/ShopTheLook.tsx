@@ -1,17 +1,19 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useZaiStore, type ZaiView } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 import ZaiImage from './ZaiImage';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { extractFilename } from './ZaiImage';
 
 // ── Hotspot Data ──────────────────────────────────────────
 
 interface HotspotData {
   id: string;
   label: string;
+  /** Percentage-based position relative to the image container */
   desktop: { top: string; left: string };
   mobile: { top: string; left: string };
   title: string;
@@ -89,16 +91,13 @@ function HotspotTooltip({ data, onClose }: { data: HotspotData; onClose: () => v
     }
   };
 
-  // Position tooltip to the right of the hotspot by default
   const isLeftSide = parseFloat(data.desktop.left) > 60;
-  const tooltipX = isLeftSide ? '-140%' : '140%';
-  const originX = isLeftSide ? 'right' : 'left';
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9, x: originX === 'left' ? 8 : -8 }}
+      initial={{ opacity: 0, scale: 0.92, x: isLeftSide ? 8 : -8 }}
       animate={{ opacity: 1, scale: 1, x: 0 }}
-      exit={{ opacity: 0, scale: 0.9, x: originX === 'left' ? 8 : -8 }}
+      exit={{ opacity: 0, scale: 0.92, x: isLeftSide ? 8 : -8 }}
       transition={{ duration: 0.25, ease: 'easeOut' }}
       className={
         'absolute z-30 w-56 p-5 bg-zai-dark/95 backdrop-blur-md ' +
@@ -108,13 +107,12 @@ function HotspotTooltip({ data, onClose }: { data: HotspotData; onClose: () => v
       style={{
         top: '50%',
         transform: 'translateY(-50%)',
-        [originX]: '100%',
+        [isLeftSide ? 'right' : 'left']: '100%',
         marginLeft: isLeftSide ? undefined : '16px',
         marginRight: isLeftSide ? '16px' : undefined,
       }}
       onMouseLeave={onClose}
     >
-      {/* Label chip */}
       <span className="inline-block text-[10px] tracking-editorial uppercase text-zai-gold/50 mb-2">
         {data.label}
       </span>
@@ -140,10 +138,17 @@ function HotspotTooltip({ data, onClose }: { data: HotspotData; onClose: () => v
   );
 }
 
-// ── Bottom Sheet (Mobile) ──────────────────────────────────
+// ── Product Drawer / Bottom Sheet (Mobile) ─────────────────
 
-function BottomSheet({ data, onClose }: { data: HotspotData | null; onClose: () => void }) {
+function ProductDrawer({
+  data,
+  onClose,
+}: {
+  data: HotspotData | null;
+  onClose: () => void;
+}) {
   const setView = useZaiStore((s) => s.setView);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   const handleAction = () => {
     if (data?.action) {
@@ -151,57 +156,77 @@ function BottomSheet({ data, onClose }: { data: HotspotData | null; onClose: () 
     }
   };
 
+  // Close on drag down past threshold
+  const handleDragEnd = useCallback(
+    (_: unknown, info: { offset: { y: number }; velocity: { y: number } }) => {
+      if (info.offset.y > 80 || info.velocity.y > 500) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
+
   return (
     <AnimatePresence>
       {data && (
         <>
-          {/* Overlay */}
+          {/* Backdrop */}
           <motion.div
-            key="sheet-overlay"
+            key="drawer-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2 }}
             className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
             onClick={onClose}
             aria-hidden="true"
           />
-          {/* Panel */}
+
+          {/* Drawer panel */}
           <motion.div
-            ref={sheetRef}
-            key="sheet-panel"
+            ref={panelRef}
+            key="drawer-panel"
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-50 bg-zai-dark border-t border-zai-gold/20 rounded-t-2xl p-6 pb-10"
+            drag="y"
+            dragConstraints={{ top: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
+            className="fixed bottom-0 left-0 right-0 z-50 bg-zai-dark border-t border-zai-gold/20 rounded-t-2xl"
             role="dialog"
             aria-label={`${data.label} product details`}
           >
             {/* Drag handle */}
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center pt-3 pb-4">
               <div className="w-10 h-1 rounded-full bg-zai-gold/30" />
             </div>
-            {/* Content */}
-            <span className="inline-block text-[10px] tracking-editorial uppercase text-zai-gold/50 mb-2">
-              {data.label}
-            </span>
-            <h3 className="font-display text-xl text-zai-ivory mb-1">{data.title}</h3>
-            {data.shade && (
-              <p className="text-sm text-zai-gold mb-0.5">{data.shade}</p>
-            )}
-            {data.price && (
-              <p className="text-sm text-zai-ivory/60 mb-4">{data.price}</p>
-            )}
-            {data.text && (
-              <p className="text-sm text-zai-ivory/60 mb-4">{data.text}</p>
-            )}
-            <button
-              onClick={handleAction}
-              className="btn-luxury w-full text-center text-xs py-3"
-            >
-              {data.buttonText}
-            </button>
+
+            {/* Product content */}
+            <div className="px-6 pb-8" style={{ paddingBottom: 'calc(2rem + env(safe-area-inset-bottom, 0px))' }}>
+              <span className="inline-block text-[10px] tracking-editorial uppercase text-zai-gold/50 mb-2">
+                {data.label}
+              </span>
+              <h3 className="font-display text-xl text-zai-ivory mb-1">
+                {data.title}
+              </h3>
+              {data.shade && (
+                <p className="text-sm text-zai-gold mb-0.5">{data.shade}</p>
+              )}
+              {data.price && (
+                <p className="text-sm text-zai-ivory/60 mb-4">{data.price}</p>
+              )}
+              {data.text && (
+                <p className="text-sm text-zai-ivory/60 mb-6">{data.text}</p>
+              )}
+              <button
+                onClick={handleAction}
+                className="btn-luxury w-full text-center text-xs py-3.5"
+              >
+                {data.buttonText}
+              </button>
+            </div>
           </motion.div>
         </>
       )}
@@ -215,7 +240,23 @@ export default function ShopTheLook() {
   const isMobile = useIsMobile();
   const activeHotspot = useZaiStore((s) => s.activeHotspot);
   const setActiveHotspot = useZaiStore((s) => s.setActiveHotspot);
-  const setView = useZaiStore((s) => s.setView);
+
+  // ── Image load gate ──
+  // Hotspots are ONLY rendered after the real image has loaded.
+  // If the image is still loading, errored, or missing, only the
+  // placeholder (or loading state) is shown — zero hotspot markers.
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageErrored, setImageErrored] = useState(false);
+
+  const handleImageLoad = useCallback(() => {
+    setImageLoaded(true);
+  }, []);
+
+  const handleImageError = useCallback(() => {
+    setImageErrored(true);
+  }, []);
+
+  const showHotspots = imageLoaded && !imageErrored;
 
   const activeData = hotspots.find((h) => h.id === activeHotspot) ?? null;
 
@@ -237,9 +278,17 @@ export default function ShopTheLook() {
     }
   };
 
-  const handleCloseSheet = () => {
+  const handleCloseDrawer = () => {
     setActiveHotspot(null);
   };
+
+  const imageSrc = isMobile
+    ? zaiAssets.zainab.shopTheLookMobile01
+    : zaiAssets.zainab.shopTheLook01;
+
+  const imageFilename = extractFilename(imageSrc);
+  const imageDescription =
+    'Zainab Al Alwan full look — interactive shopping experience';
 
   return (
     <section
@@ -271,121 +320,190 @@ export default function ShopTheLook() {
 
       {/* ── Interactive Image Area ── */}
       <div className="relative w-full max-w-5xl mx-auto px-4 md:px-8">
+        {/*
+          Container: relative positioning anchor for both image and hotspots.
+          The aspect ratio matches the image so percentage-based hotspot
+          positions scale correctly across all breakpoints.
+        */}
         <div className="relative w-full aspect-[3/4] md:aspect-[4/5]">
-          {/* Main image */}
+          {/*
+            Main image — or placeholder if missing/failed.
+            When the real image loads, onImageLoad fires → showHotspots becomes true.
+            When it fails, onImageError fires → imageErrored true → hotspots stay hidden.
+          */}
           <ZaiImage
-            src={isMobile ? zaiAssets.zainab.shopTheLookMobile01 : zaiAssets.zainab.shopTheLook01}
-            alt="Zainab Al Alwan full look — interactive shopping experience"
+            src={imageSrc}
+            alt={imageDescription}
+            filename={imageFilename}
+            description={imageDescription}
             brand="zai"
             fill
             className="object-cover object-top select-none"
             priority={false}
+            onImageLoad={handleImageLoad}
+            onImageError={handleImageError}
           />
 
-          {/* Hotspots */}
-          {hotspots.map((hotspot) => {
-            const position = isMobile ? hotspot.mobile : hotspot.desktop;
-            const isActive = activeHotspot === hotspot.id;
-            const size = isMobile ? 'w-5 h-5' : 'w-3 h-3';
+          {/*
+            ── Hotspots ──
+            ONLY rendered after the real image has successfully loaded.
+            Positioned as percentage of the image container (relative parent),
+            so they stay aligned regardless of viewport width.
+          */}
+          {showHotspots && (
+            <AnimatePresence>
+              {hotspots.map((hotspot, index) => {
+                const position = isMobile
+                  ? hotspot.mobile
+                  : hotspot.desktop;
+                const isActive = activeHotspot === hotspot.id;
 
-            return (
-              <div
-                key={hotspot.id}
-                className="absolute z-20"
-                style={{ top: position.top, left: position.left }}
-              >
-                {/* Pulse ring — only animate when not active */}
-                <motion.span
-                  className={`absolute inset-0 rounded-full border border-zai-gold ${size}`}
-                  animate={
-                    isActive
-                      ? { scale: 1, opacity: 0.8 }
-                      : {
-                          scale: [1, 1.8, 1],
-                          opacity: [0.6, 0, 0.6],
+                return (
+                  <motion.div
+                    key={hotspot.id}
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{
+                      duration: 0.4,
+                      delay: index * 0.08,
+                      ease: 'easeOut',
+                    }}
+                    className="absolute z-20"
+                    style={{
+                      top: position.top,
+                      left: position.left,
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  >
+                    {/* Pulse ring */}
+                    <motion.span
+                      className={
+                        'absolute rounded-full border border-zai-gold ' +
+                        (isMobile
+                          ? 'w-11 h-11'
+                          : 'w-3 h-3')
+                      }
+                      style={{
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                      }}
+                      animate={
+                        isActive
+                          ? { scale: 1, opacity: 0.8 }
+                          : { scale: [1, 1.8, 1], opacity: [0.6, 0, 0.6] }
+                      }
+                      transition={
+                        isActive
+                          ? { duration: 0.2 }
+                          : {
+                              duration: 2,
+                              repeat: Infinity,
+                              ease: 'easeInOut',
+                            }
+                      }
+                    />
+
+                    {/*
+                      Core button — 44px touch target on mobile,
+                      12px precision dot on desktop.
+                    */}
+                    <motion.button
+                      className={
+                        'relative rounded-full bg-zai-gold/80 border border-zai-gold ' +
+                        'cursor-pointer focus:outline-none focus-visible:ring-2 ' +
+                        'focus-visible:ring-zai-gold transition-colors duration-200 ' +
+                        (isMobile
+                          ? 'w-11 h-11'
+                          : 'w-3 h-3') +
+                        (isActive ? ' bg-zai-gold' : ' hover:bg-zai-gold')
+                      }
+                      onMouseEnter={() => handleHotspotEnter(hotspot.id)}
+                      onMouseLeave={handleHotspotLeave}
+                      onClick={() => handleHotspotTap(hotspot.id)}
+                      onFocus={() => handleHotspotEnter(hotspot.id)}
+                      onBlur={handleHotspotLeave}
+                      aria-label={`${hotspot.label}: ${hotspot.title}`}
+                      aria-expanded={isActive}
+                    >
+                      {/* Inner glow */}
+                      <span className="absolute inset-1 rounded-full bg-zai-gold/60" />
+                    </motion.button>
+
+                    {/*
+                      Mobile label — visible beside each tap target
+                      so users know what each hotspot represents.
+                    */}
+                    {isMobile && (
+                      <span
+                        className={
+                          'absolute left-[calc(100%+8px)] top-1/2 -translate-y-1/2 ' +
+                          'whitespace-nowrap text-[9px] tracking-editorial uppercase ' +
+                          'text-zai-ivory/70 bg-zai-dark/70 backdrop-blur-sm ' +
+                          'px-2 py-1 rounded-sm pointer-events-none'
                         }
-                  }
-                  transition={
-                    isActive
-                      ? { duration: 0.2 }
-                      : {
-                          duration: 2,
-                          repeat: Infinity,
-                          ease: 'easeInOut',
-                        }
-                  }
-                  style={{ transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }}
-                />
-
-                {/* Core dot */}
-                <motion.button
-                  className={`
-                    relative ${size} rounded-full bg-zai-gold/80 border border-zai-gold
-                    cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-zai-gold
-                    transition-colors duration-200
-                    ${isActive ? 'bg-zai-gold' : 'hover:bg-zai-gold'}
-                  `}
-                  style={{ transform: 'translate(-50%, -50%)', top: '50%', left: '50%' }}
-                  onMouseEnter={() => handleHotspotEnter(hotspot.id)}
-                  onMouseLeave={handleHotspotLeave}
-                  onClick={() => handleHotspotTap(hotspot.id)}
-                  onFocus={() => handleHotspotEnter(hotspot.id)}
-                  onBlur={handleHotspotLeave}
-                  aria-label={`${hotspot.label}: ${hotspot.title}`}
-                  aria-expanded={isActive}
-                >
-                  {/* Inner glow */}
-                  <span className="absolute inset-1 rounded-full bg-zai-gold/60" />
-                </motion.button>
-
-                {/* Desktop tooltip */}
-                {!isMobile && (
-                  <AnimatePresence>
-                    {isActive && (
-                      <HotspotTooltip
-                        key={hotspot.id}
-                        data={hotspot}
-                        onClose={handleHotspotLeave}
-                      />
+                      >
+                        {hotspot.label}
+                      </span>
                     )}
-                  </AnimatePresence>
-                )}
-              </div>
-            );
-          })}
+
+                    {/* Desktop tooltip */}
+                    {!isMobile && (
+                      <AnimatePresence>
+                        {isActive && (
+                          <HotspotTooltip
+                            key={hotspot.id}
+                            data={hotspot}
+                            onClose={handleHotspotLeave}
+                          />
+                        )}
+                      </AnimatePresence>
+                    )}
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+          )}
         </div>
 
-        {/* Hint text */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="mt-6 text-center"
-        >
-          <motion.span
-            className="inline-flex items-center gap-2 text-xs tracking-editorial text-zai-ivory/30"
-            animate={{ y: [0, -4, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+        {/* Hint text — only show when hotspots are visible */}
+        {showHotspots && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="mt-6 text-center"
           >
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 12 12"
-              fill="none"
-              className="text-zai-gold/40"
-              aria-hidden="true"
+            <motion.span
+              className="inline-flex items-center gap-2 text-xs tracking-editorial text-zai-ivory/30"
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
             >
-              <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" />
-              <circle cx="6" cy="6" r="2" fill="currentColor" />
-            </svg>
-            {isMobile ? 'TAP TO EXPLORE' : 'HOVER TO EXPLORE'}
-          </motion.span>
-        </motion.div>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 12 12"
+                fill="none"
+                className="text-zai-gold/40"
+                aria-hidden="true"
+              >
+                <circle cx="6" cy="6" r="5" stroke="currentColor" strokeWidth="1" />
+                <circle cx="6" cy="6" r="2" fill="currentColor" />
+              </svg>
+              {isMobile ? 'TAP TO EXPLORE' : 'HOVER TO EXPLORE'}
+            </motion.span>
+          </motion.div>
+        )}
       </div>
 
-      {/* ── Mobile Bottom Sheet ── */}
-      {isMobile && <BottomSheet data={activeData} onClose={handleCloseSheet} />}
+      {/* ── Mobile Product Drawer ── */}
+      {isMobile && showHotspots && (
+        <ProductDrawer data={activeData} onClose={handleCloseDrawer} />
+      )}
     </section>
   );
 }
