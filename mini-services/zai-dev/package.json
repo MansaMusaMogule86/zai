@@ -1,0 +1,4 @@
+{
+  "name": "zai-dev",
+  "scripts": { "dev": "bun --hot index.ts" }
+}

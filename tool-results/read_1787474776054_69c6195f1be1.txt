@@ -1,0 +1,729 @@
+     1→'use client';
+     2→
+     3→import { useCallback, useEffect, useRef } from 'react';
+     4→import { motion, AnimatePresence } from 'framer-motion';
+     5→import { ArrowLeft } from 'lucide-react';
+     6→import { useZaiStore, type MirrorResult } from '@/lib/store';
+     7→import { products } from '@/lib/products';
+     8→import { useToast } from '@/hooks/use-toast';
+     9→
+    10→/* ── helpers ────────────────────────────────────────────────── */
+    11→
+    12→const TOTAL_STEPS = 7; // 0-6
+    13→
+    14→function getShadeHex(productName: string, shadeName: string): string {
+    15→  const prod = products.find(
+    16→    (p) => p.name.toLowerCase() === productName.toLowerCase()
+    17→  );
+    18→  if (!prod) return '#C9A96E';
+    19→  const shade = prod.shades.find(
+    20→    (s) => s.name.toLowerCase() === shadeName.toLowerCase()
+    21→  );
+    22→  return shade?.hex ?? '#C9A96E';
+    23→}
+    24→
+    25→/* ── animation variants ─────────────────────────────────────── */
+    26→
+    27→const slideVariants = {
+    28→  enter: (direction: number) => ({
+    29→    x: direction > 0 ? '100%' : '-100%',
+    30→    opacity: 0,
+    31→  }),
+    32→  center: {
+    33→    x: 0,
+    34→    opacity: 1,
+    35→  },
+    36→  exit: (direction: number) => ({
+    37→    x: direction > 0 ? '-100%' : '100%',
+    38→    opacity: 0,
+    39→  }),
+    40→};
+    41→
+    42→const slideTransition = {
+    43→  x: { type: 'spring', stiffness: 300, damping: 30 },
+    44→  opacity: { duration: 0.2 },
+    45→};
+    46→
+    47→/* ── option button component ────────────────────────────────── */
+    48→
+    49→function OptionButton({
+    50→  label,
+    51→  selected,
+    52→  onClick,
+    53→}: {
+    54→  label: string;
+    55→  selected: boolean;
+    56→  onClick: () => void;
+    57→}) {
+    58→  return (
+    59→    <button
+    60→      onClick={onClick}
+    61→      className={
+    62→        'relative w-full py-5 md:py-6 px-6 text-left transition-all duration-300 cursor-pointer ' +
+    63→        'bg-zai-charcoal border rounded-sm ' +
+    64→        (selected
+    65→          ? 'border-zai-gold shadow-[0_0_20px_rgba(201,169,110,0.15)]'
+    66→          : 'border-zai-ivory/10 hover:border-zai-gold/40')
+    67→      }
+    68→    >
+    69→      <span
+    70→        className={
+    71→          'font-display text-lg md:text-xl tracking-editorial transition-colors duration-300 ' +
+    72→          (selected ? 'text-zai-gold' : 'text-zai-ivory/70')
+    73→        }
+    74→      >
+    75→        {label}
+    76→      </span>
+    77→      {selected && (
+    78→        <motion.span
+    79→          className="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-zai-gold"
+    80→          layoutId="option-dot"
+    81→          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+    82→        />
+    83→      )}
+    84→    </button>
+    85→  );
+    86→}
+    87→
+    88→/* ── question wrapper ───────────────────────────────────────── */
+    89→
+    90→function QuestionGroup({
+    91→  question,
+    92→  options,
+    93→  answerKey,
+    94→}: {
+    95→  question: string;
+    96→  options: string[];
+    97→  answerKey: string;
+    98→}) {
+    99→  const { mirrorAnswers, setMirrorAnswer } = useZaiStore();
+   100→  const current = mirrorAnswers[answerKey] ?? '';
+   101→
+   102→  return (
+   103→    <div className="space-y-4">
+   104→      <p className="text-xs tracking-editorial uppercase text-zai-ivory/40 mb-3">
+   105→        {question}
+   106→      </p>
+   107→      <div className="space-y-3">
+   108→        {options.map((opt) => (
+   109→          <OptionButton
+   110→            key={opt}
+   111→            label={opt}
+   112→            selected={current === opt}
+   113→            onClick={() => setMirrorAnswer(answerKey, opt)}
+   114→          />
+   115→        ))}
+   116→      </div>
+   117→    </div>
+   118→  );
+   119→}
+   120→
+   121→/* ── product result card ────────────────────────────────────── */
+   122→
+   123→function ProductCard({
+   124→  label,
+   125→  name,
+   126→  shade,
+   127→}: {
+   128→  label: string;
+   129→  name: string;
+   130→  shade: string;
+   131→}) {
+   132→  const hex = getShadeHex(name, shade);
+   133→  return (
+   134→    <div className="bg-zai-charcoal border border-zai-ivory/10 p-5 flex items-center gap-4">
+   135→      <span
+   136→        className="w-10 h-10 md:w-12 md:h-12 rounded-full shrink-0 border border-zai-ivory/10"
+   137→        style={{ backgroundColor: hex }}
+   138→        aria-label={`${shade} swatch`}
+   139→      />
+   140→      <div className="min-w-0">
+   141→        <p className="text-[10px] tracking-editorial uppercase text-zai-gold/60 mb-1">
+   142→          {label}
+   143→        </p>
+   144→        <p className="font-display text-sm md:text-base text-zai-ivory truncate">
+   145→          {name}
+   146→        </p>
+   147→        <p className="text-xs text-zai-ivory/50 mt-0.5">{shade}</p>
+   148→      </div>
+   149→    </div>
+   150→  );
+   151→}
+   152→
+   153→/* ── loading step ───────────────────────────────────────────── */
+   154→
+   155→function LoadingStep() {
+   156→  return (
+   157→    <div className="flex flex-col items-center justify-center min-h-[60vh] gap-8">
+   158→      {/* Rotating ring */}
+   159→      <div className="relative w-24 h-24 md:w-32 md:h-32">
+   160→        <motion.div
+   161→          className="absolute inset-0 rounded-full border border-zai-gold/30"
+   162→          animate={{ rotate: 360 }}
+   163→          transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+   164→        />
+   165→        <motion.div
+   166→          className="absolute inset-2 rounded-full border border-zai-gold/50"
+   167→          animate={{ rotate: -360 }}
+   168→          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+   169→        />
+   170→        {/* Pulsing center */}
+   171→        <motion.div
+   172→          className="absolute inset-0 m-auto w-6 h-6 md:w-8 md:h-8 rounded-full bg-zai-gold"
+   173→          animate={{
+   174→            scale: [1, 1.3, 1],
+   175→            opacity: [0.6, 1, 0.6],
+   176→          }}
+   177→          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+   178→        />
+   179→      </div>
+   180→      {/* Shimmer text */}
+   181→      <div className="text-center">
+   182→        <p className="font-display text-xl md:text-2xl text-zai-ivory">
+   183→          Creating your ZAI profile...
+   184→        </p>
+   185→        <div className="mt-3 h-px w-48 mx-auto overflow-hidden bg-zai-ivory/10">
+   186→          <motion.div
+   187→            className="h-full bg-gradient-to-r from-transparent via-zai-gold to-transparent"
+   188→            animate={{ x: ['-100%', '100%'] }}
+   189→            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+   190→          />
+   191→        </div>
+   192→      </div>
+   193→    </div>
+   194→  );
+   195→}
+   196→
+   197→/* ── main component ─────────────────────────────────────────── */
+   198→
+   199→export default function ZaiMirror() {
+   200→  const {
+   201→    mirrorStep,
+   202→    setMirrorStep,
+   203→    mirrorAnswers,
+   204→    setMirrorAnswer,
+   205→    mirrorResult,
+   206→    setMirrorResult,
+   207→    setView,
+   208→  } = useZaiStore();
+   209→  const { toast } = useToast();
+   210→  const directionRef = useRef(1);
+   211→  const hasFetched = useRef(false);
+   212→
+   213→  /* ── auto-advance on answer selection ────────────────────── */
+   214→  const advance = useCallback(
+   215→    (answerKey: string, value: string) => {
+   216→      setMirrorAnswer(answerKey, value);
+   217→      // Auto-advance after 300ms
+   218→      setTimeout(() => {
+   219→        setMirrorStep(mirrorStep + 1);
+   220→      }, 300);
+   221→    },
+   222→    [mirrorStep, setMirrorAnswer, setMirrorStep]
+   223→  );
+   224→
+   225→  /* ── back navigation ─────────────────────────────────────── */
+   226→  const goBack = useCallback(() => {
+   227→    if (mirrorStep === 0) {
+   228→      setView('home');
+   229→    } else {
+   230→      directionRef.current = -1;
+   231→      setMirrorStep(mirrorStep - 1);
+   232→    }
+   233→  }, [mirrorStep, setMirrorStep, setView]);
+   234→
+   235→  const goForward = useCallback(() => {
+   236→    directionRef.current = 1;
+   237→    setMirrorStep(mirrorStep + 1);
+   238→  }, [mirrorStep, setMirrorStep]);
+   239→
+   240→  /* ── fetch recommendations on step 5 ────────────────────── */
+   241→  useEffect(() => {
+   242→    if (mirrorStep !== 5 || hasFetched.current) return;
+   243→    hasFetched.current = true;
+   244→
+   245→    let cancelled = false;
+   246→
+   247→    (async () => {
+   248→      try {
+   249→        const res = await fetch('/api/mirror', {
+   250→          method: 'POST',
+   251→          headers: { 'Content-Type': 'application/json' },
+   252→          body: JSON.stringify({ answers: mirrorAnswers }),
+   253→        });
+   254→        const data: MirrorResult = await res.json();
+   255→        if (!cancelled) {
+   256→          setMirrorResult(data);
+   257→          setMirrorStep(6);
+   258→        }
+   259→      } catch {
+   260→        if (!cancelled) {
+   261→          // Fallback defaults
+   262→          const tone = mirrorAnswers['skinTone'] || 'Medium';
+   263→          const style = mirrorAnswers['style'] || 'Natural Glam';
+   264→          const fallback: MirrorResult = {
+   265→            foundation: { name: 'Beauty Booster Foundation', shade: tone === 'Fair' ? 'Pearl' : tone === 'Light' ? 'Sand' : tone === 'Deep' ? 'Bronze' : 'Amber' },
+   266→            lip: { name: 'Velvet Matt Lipstick', shade: tone === 'Fair' ? 'Nude Edit' : tone === 'Light' ? 'Desert Rose' : tone === 'Deep' ? 'Burgundy Luxe' : 'Mocha' },
+   267→            highlighter: { name: 'Glozé Highlighter', shade: 'Golden Hour' },
+   268→            eye: { name: 'Precision Eyeliner', shade: 'Noir' },
+   269→            routine: style === 'Minimal' || style === 'Natural Glam'
+   270→              ? ['Beauty Booster Foundation', 'Glozé Highlighter', 'Velvet Matt Lipstick', 'Lash Booster Mascara']
+   271→              : ['Beauty Booster Foundation', 'Glozé Highlighter', 'Precision Eyeliner', 'Brow Definer', 'Velvet Matt Lipstick', 'Lip Pencil', 'Lash Booster Mascara'],
+   272→          };
+   273→          setMirrorResult(fallback);
+   274→          setMirrorStep(6);
+   275→        }
+   276→      }
+   277→    })();
+   278→
+   279→    return () => {
+   280→      cancelled = true;
+   281→    };
+   282→  }, [mirrorStep, mirrorAnswers, setMirrorResult, setMirrorStep]);
+   283→
+   284→  /* ── reset mirror ────────────────────────────────────────── */
+   285→  const resetMirror = useCallback(() => {
+   286→    setMirrorStep(0);
+   287→    setMirrorResult(null);
+   288→    setMirrorAnswer('__reset__', '');
+   289→    // Clear all answers via store — we clear by resetting
+   290→    useZaiStore.setState({ mirrorAnswers: {} });
+   291→    hasFetched.current = false;
+   292→  }, [setMirrorStep, setMirrorResult, setMirrorAnswer]);
+   293→
+   294→  /* ── save profile toast ──────────────────────────────────── */
+   295→  const saveProfile = useCallback(() => {
+   296→    toast({
+   297→      title: 'Profile saved',
+   298→      description: 'Your ZAI beauty profile has been saved.',
+   299→    });
+   300→  }, [toast]);
+   301→
+   302→  /* ── step dots ───────────────────────────────────────────── */
+   303→  const dots = Array.from({ length: TOTAL_STEPS }, (_, i) => i);
+   304→  const visibleStep = mirrorStep >= 5 ? Math.min(mirrorStep, 6) : mirrorStep;
+   305→
+   306→  return (
+   307→    <section
+   308→      className="relative min-h-screen bg-zai-black flex flex-col"
+   309→      role="dialog"
+   310→      aria-label="Find Your ZAI — Beauty Concierge"
+   311→    >
+   312→      {/* ── Header ─────────────────────────────────────────── */}
+   313→      <header className="flex items-center justify-between px-6 pt-6 pb-4 relative z-10">
+   314→        <button
+   315→          onClick={goBack}
+   316→          className="flex items-center gap-2 text-xs tracking-editorial text-zai-ivory/40 hover:text-zai-ivory/80 transition-colors duration-300 cursor-pointer"
+   317→          aria-label={mirrorStep === 0 ? 'Go back to home' : 'Go back'}
+   318→        >
+   319→          <ArrowLeft className="w-4 h-4" />
+   320→          BACK
+   321→        </button>
+   322→        <span className="text-xs tracking-editorial text-zai-gold/50">
+   323→          FIND YOUR ZAI
+   324→        </span>
+   325→        <div className="w-16" /> {/* spacer for centering */}
+   326→      </header>
+   327→
+   328→      {/* ── Step Indicator Dots ─────────────────────────────── */}
+   329→      <div className="flex items-center justify-center gap-2 px-6 pb-8">
+   330→        {dots.map((i) => (
+   331→          <div
+   332→            key={i}
+   333→            className={
+   334→              'h-1 rounded-full transition-all duration-500 ' +
+   335→              (i === visibleStep
+   336→                ? 'w-6 bg-zai-gold'
+   337→                : i < visibleStep
+   338→                  ? 'w-1.5 bg-zai-gold/40'
+   339→                  : 'w-1.5 bg-zai-ivory/15')
+   340→            }
+   341→          />
+   342→        ))}
+   343→      </div>
+   344→
+   345→      {/* ── Step Content ───────────────────────────────────── */}
+   346→      <div className="flex-1 relative overflow-hidden">
+   347→        <AnimatePresence initial={false} custom={directionRef.current} mode="wait">
+   348→          {/* STEP 0 — Welcome */}
+   349→          {mirrorStep === 0 && (
+   350→            <motion.div
+   351→              key="step-0"
+   352→              custom={directionRef.current}
+   353→              variants={slideVariants}
+   354→              initial="enter"
+   355→              animate="center"
+   356→              exit="exit"
+   357→              transition={slideTransition}
+   358→              className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
+   359→            >
+   360→              <h1 className="font-display text-5xl md:text-7xl text-zai-ivory tracking-luxe leading-tight">
+   361→                FIND YOUR
+   362→                <br />
+   363→                <span className="text-gradient-gold">ZAI</span>
+   364→              </h1>
+   365→              <p className="mt-4 text-zai-ivory/40 text-sm md:text-base">
+   366→                Your personalized beauty identity
+   367→              </p>
+   368→              <button
+   369→                onClick={goForward}
+   370→                className="btn-gold mt-12 w-full md:w-auto cursor-pointer"
+   371→              >
+   372→                BEGIN
+   373→              </button>
+   374→            </motion.div>
+   375→          )}
+   376→
+   377→          {/* STEP 1 — Skin Tone */}
+   378→          {mirrorStep === 1 && (
+   379→            <motion.div
+   380→              key="step-1"
+   381→              custom={directionRef.current}
+   382→              variants={slideVariants}
+   383→              initial="enter"
+   384→              animate="center"
+   385→              exit="exit"
+   386→              transition={slideTransition}
+   387→              className="absolute inset-0 flex flex-col justify-center px-6 md:px-12 lg:px-24 max-w-2xl mx-auto w-full"
+   388→            >
+   389→              <QuestionGroup
+   390→                question="What is your skin tone?"
+   391→                options={['Fair', 'Light', 'Medium', 'Deep']}
+   392→                answerKey="skinTone"
+   393→              />
+   394→            </motion.div>
+   395→          )}
+   396→
+   397→          {/* STEP 2 — Undertone */}
+   398→          {mirrorStep === 2 && (
+   399→            <motion.div
+   400→              key="step-2"
+   401→              custom={directionRef.current}
+   402→              variants={slideVariants}
+   403→              initial="enter"
+   404→              animate="center"
+   405→              exit="exit"
+   406→              transition={slideTransition}
+   407→              className="absolute inset-0 flex flex-col justify-center px-6 md:px-12 lg:px-24 max-w-2xl mx-auto w-full"
+   408→            >
+   409→              <QuestionGroup
+   410→                question="What is your undertone?"
+   411→                options={['Cool', 'Warm', 'Neutral', 'Olive']}
+   412→                answerKey="undertone"
+   413→              />
+   414→            </motion.div>
+   415→          )}
+   416→
+   417→          {/* STEP 3 — Coverage + Finish */}
+   418→          {mirrorStep === 3 && (
+   419→            <motion.div
+   420→              key="step-3"
+   421→              custom={directionRef.current}
+   422→              variants={slideVariants}
+   423→              initial="enter"
+   424→              animate="center"
+   425→              exit="exit"
+   426→              transition={slideTransition}
+   427→              className="absolute inset-0 flex flex-col justify-center px-6 md:px-12 lg:px-24 max-w-2xl mx-auto w-full gap-10"
+   428→            >
+   429→              <div className="space-y-4">
+   430→                <p className="text-xs tracking-editorial uppercase text-zai-ivory/40 mb-3">
+   431→                  Coverage preference?
+   432→                </p>
+   433→                <div className="space-y-3">
+   434→                  {['Sheer', 'Light', 'Medium', 'Full'].map((opt) => {
+   435→                    const selected = mirrorAnswers['coverage'] === opt;
+   436→                    return (
+   437→                      <button
+   438→                        key={opt}
+   439→                        onClick={() => advance('coverage', opt)}
+   440→                        className={
+   441→                          'relative w-full py-5 md:py-6 px-6 text-left transition-all duration-300 cursor-pointer ' +
+   442→                          'bg-zai-charcoal border rounded-sm ' +
+   443→                          (selected
+   444→                            ? 'border-zai-gold shadow-[0_0_20px_rgba(201,169,110,0.15)]'
+   445→                            : 'border-zai-ivory/10 hover:border-zai-gold/40')
+   446→                        }
+   447→                      >
+   448→                        <span
+   449→                          className={
+   450→                            'font-display text-lg md:text-xl tracking-editorial transition-colors duration-300 ' +
+   451→                            (selected ? 'text-zai-gold' : 'text-zai-ivory/70')
+   452→                          }
+   453→                        >
+   454→                          {opt}
+   455→                        </span>
+   456→                        {selected && (
+   457→                          <motion.span
+   458→                            className="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-zai-gold"
+   459→                            layoutId="step3-dot-coverage"
+   460→                            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+   461→                          />
+   462→                        )}
+   463→                      </button>
+   464→                    );
+   465→                  })}
+   466→                </div>
+   467→              </div>
+   468→              <div className="space-y-4">
+   469→                <p className="text-xs tracking-editorial uppercase text-zai-ivory/40 mb-3">
+   470→                  Finish preference?
+   471→                </p>
+   472→                <div className="space-y-3">
+   473→                  {['Dewy', 'Natural', 'Matte', 'Satin'].map((opt) => {
+   474→                    const selected = mirrorAnswers['finish'] === opt;
+   475→                    return (
+   476→                      <button
+   477→                        key={opt}
+   478→                        onClick={() => advance('finish', opt)}
+   479→                        className={
+   480→                          'relative w-full py-5 md:py-6 px-6 text-left transition-all duration-300 cursor-pointer ' +
+   481→                          'bg-zai-charcoal border rounded-sm ' +
+   482→                          (selected
+   483→                            ? 'border-zai-gold shadow-[0_0_20px_rgba(201,169,110,0.15)]'
+   484→                            : 'border-zai-ivory/10 hover:border-zai-gold/40')
+   485→                        }
+   486→                      >
+   487→                        <span
+   488→                          className={
+   489→                            'font-display text-lg md:text-xl tracking-editorial transition-colors duration-300 ' +
+   490→                            (selected ? 'text-zai-gold' : 'text-zai-ivory/70')
+   491→                          }
+   492→                        >
+   493→                          {opt}
+   494→                        </span>
+   495→                        {selected && (
+   496→                          <motion.span
+   497→                            className="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-zai-gold"
+   498→                            layoutId="step3-dot-finish"
+   499→                            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+   500→                          />
+   501→                        )}
+   502→                      </button>
+   503→                    );
+   504→                  })}
+   505→                </div>
+   506→              </div>
+   507→            </motion.div>
+   508→          )}
+   509→
+   510→          {/* STEP 4 — Style + Occasion */}
+   511→          {mirrorStep === 4 && (
+   512→            <motion.div
+   513→              key="step-4"
+   514→              custom={directionRef.current}
+   515→              variants={slideVariants}
+   516→              initial="enter"
+   517→              animate="center"
+   518→              exit="exit"
+   519→              transition={slideTransition}
+   520→              className="absolute inset-0 flex flex-col justify-center px-6 md:px-12 lg:px-24 max-w-2xl mx-auto w-full gap-10"
+   521→            >
+   522→              <div className="space-y-4">
+   523→                <p className="text-xs tracking-editorial uppercase text-zai-ivory/40 mb-3">
+   524→                  What is your beauty style?
+   525→                </p>
+   526→                <div className="space-y-3">
+   527→                  {['Minimal', 'Natural Glam', 'Full Glam', 'Editorial'].map((opt) => {
+   528→                    const selected = mirrorAnswers['style'] === opt;
+   529→                    return (
+   530→                      <button
+   531→                        key={opt}
+   532→                        onClick={() => advance('style', opt)}
+   533→                        className={
+   534→                          'relative w-full py-5 md:py-6 px-6 text-left transition-all duration-300 cursor-pointer ' +
+   535→                          'bg-zai-charcoal border rounded-sm ' +
+   536→                          (selected
+   537→                            ? 'border-zai-gold shadow-[0_0_20px_rgba(201,169,110,0.15)]'
+   538→                            : 'border-zai-ivory/10 hover:border-zai-gold/40')
+   539→                        }
+   540→                      >
+   541→                        <span
+   542→                          className={
+   543→                            'font-display text-lg md:text-xl tracking-editorial transition-colors duration-300 ' +
+   544→                            (selected ? 'text-zai-gold' : 'text-zai-ivory/70')
+   545→                          }
+   546→                        >
+   547→                          {opt}
+   548→                        </span>
+   549→                        {selected && (
+   550→                          <motion.span
+   551→                            className="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-zai-gold"
+   552→                            layoutId="step4-dot-style"
+   553→                            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+   554→                          />
+   555→                        )}
+   556→                      </button>
+   557→                    );
+   558→                  })}
+   559→                </div>
+   560→              </div>
+   561→              <div className="space-y-4">
+   562→                <p className="text-xs tracking-editorial uppercase text-zai-ivory/40 mb-3">
+   563→                  When do you wear it most?
+   564→                </p>
+   565→                <div className="space-y-3">
+   566→                  {['Daily', 'Evening', 'Both'].map((opt) => {
+   567→                    const selected = mirrorAnswers['occasion'] === opt;
+   568→                    return (
+   569→                      <button
+   570→                        key={opt}
+   571→                        onClick={() => advance('occasion', opt)}
+   572→                        className={
+   573→                          'relative w-full py-5 md:py-6 px-6 text-left transition-all duration-300 cursor-pointer ' +
+   574→                          'bg-zai-charcoal border rounded-sm ' +
+   575→                          (selected
+   576→                            ? 'border-zai-gold shadow-[0_0_20px_rgba(201,169,110,0.15)]'
+   577→                            : 'border-zai-ivory/10 hover:border-zai-gold/40')
+   578→                        }
+   579→                      >
+   580→                        <span
+   581→                          className={
+   582→                            'font-display text-lg md:text-xl tracking-editorial transition-colors duration-300 ' +
+   583→                            (selected ? 'text-zai-gold' : 'text-zai-ivory/70')
+   584→                          }
+   585→                        >
+   586→                          {opt}
+   587→                        </span>
+   588→                        {selected && (
+   589→                          <motion.span
+   590→                            className="absolute right-4 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-zai-gold"
+   591→                            layoutId="step4-dot-occasion"
+   592→                            transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+   593→                          />
+   594→                        )}
+   595→                      </button>
+   596→                    );
+   597→                  })}
+   598→                </div>
+   599→              </div>
+   600→            </motion.div>
+   601→          )}
+   602→
+   603→          {/* STEP 5 — Loading */}
+   604→          {mirrorStep === 5 && (
+   605→            <motion.div
+   606→              key="step-5"
+   607→              custom={directionRef.current}
+   608→              variants={slideVariants}
+   609→              initial="enter"
+   610→              animate="center"
+   611→              exit="exit"
+   612→              transition={slideTransition}
+   613→              className="absolute inset-0"
+   614→            >
+   615→              <LoadingStep />
+   616→            </motion.div>
+   617→          )}
+   618→
+   619→          {/* STEP 6 — Results */}
+   620→          {mirrorStep === 6 && mirrorResult && (
+   621→            <motion.div
+   622→              key="step-6"
+   623→              custom={directionRef.current}
+   624→              variants={slideVariants}
+   625→              initial="enter"
+   626→              animate="center"
+   627→              exit="exit"
+   628→              transition={slideTransition}
+   629→              className="absolute inset-0 overflow-y-auto pb-32"
+   630→            >
+   631→              <div className="px-6 md:px-12 lg:px-24 max-w-2xl mx-auto w-full">
+   632→                {/* Heading */}
+   633→                <motion.div
+   634→                  initial={{ opacity: 0, y: 20 }}
+   635→                  animate={{ opacity: 1, y: 0 }}
+   636→                  transition={{ delay: 0.2, duration: 0.6 }}
+   637→                  className="text-center mb-10 pt-4"
+   638→                >
+   639→                  <h2 className="font-display text-4xl md:text-5xl text-zai-ivory tracking-luxe">
+   640→                    YOUR ZAI PROFILE
+   641→                  </h2>
+   642→                  <div className="divider-gold mt-6 mx-auto w-24" />
+   643→                </motion.div>
+   644→
+   645→                {/* Product Cards */}
+   646→                <motion.div
+   647→                  initial={{ opacity: 0 }}
+   648→                  animate={{ opacity: 1 }}
+   649→                  transition={{ delay: 0.4, duration: 0.6 }}
+   650→                  className="space-y-4"
+   651→                >
+   652→                  <ProductCard
+   653→                    label="FOUNDATION"
+   654→                    name={mirrorResult.foundation.name}
+   655→                    shade={mirrorResult.foundation.shade}
+   656→                  />
+   657→                  <ProductCard
+   658→                    label="LIP"
+   659→                    name={mirrorResult.lip.name}
+   660→                    shade={mirrorResult.lip.shade}
+   661→                  />
+   662→                  <ProductCard
+   663→                    label="HIGHLIGHTER"
+   664→                    name={mirrorResult.highlighter.name}
+   665→                    shade={mirrorResult.highlighter.shade}
+   666→                  />
+   667→                  <ProductCard
+   668→                    label="EYE"
+   669→                    name={mirrorResult.eye.name}
+   670→                    shade={mirrorResult.eye.shade}
+   671→                  />
+   672→                </motion.div>
+   673→
+   674→                {/* Routine */}
+   675→                <motion.div
+   676→                  initial={{ opacity: 0, y: 20 }}
+   677→                  animate={{ opacity: 1, y: 0 }}
+   678→                  transition={{ delay: 0.6, duration: 0.6 }}
+   679→                  className="mt-10"
+   680→                >
+   681→                  <p className="text-xs tracking-editorial uppercase text-zai-gold/60 mb-4">
+   682→                    RECOMMENDED ROUTINE
+   683→                  </p>
+   684→                  <div className="bg-zai-charcoal border border-zai-ivory/10 p-5">
+   685→                    <ol className="space-y-2">
+   686→                      {mirrorResult.routine.map((item, i) => (
+   687→                        <li key={i} className="flex items-center gap-3">
+   688→                          <span className="text-[10px] text-zai-gold/40 w-4">{String(i + 1).padStart(2, '0')}</span>
+   689→                          <span className="text-sm text-zai-ivory/70">{item}</span>
+   690→                        </li>
+   691→                      ))}
+   692→                    </ol>
+   693→                  </div>
+   694→                </motion.div>
+   695→
+   696→                {/* Action Buttons */}
+   697→                <motion.div
+   698→                  initial={{ opacity: 0, y: 20 }}
+   699→                  animate={{ opacity: 1, y: 0 }}
+   700→                  transition={{ delay: 0.8, duration: 0.6 }}
+   701→                  className="mt-10 space-y-3 pb-8"
+   702→                >
+   703→                  <button
+   704→                    onClick={() => setView('beaute')}
+   705→                    className="btn-gold w-full cursor-pointer"
+   706→                  >
+   707→                    SHOP MY ROUTINE
+   708→                  </button>
+   709→                  <button
+   710→                    onClick={saveProfile}
+   711→                    className="btn-luxury w-full cursor-pointer"
+   712→                  >
+   713→                    SAVE MY PROFILE
+   714→                  </button>
+   715→                  <button
+   716→                    onClick={resetMirror}
+   717→                    className="w-full text-xs tracking-editorial text-zai-ivory/30 hover:text-zai-ivory/60 transition-colors duration-300 py-3 cursor-pointer"
+   718→                  >
+   719→                    START OVER
+   720→                  </button>
+   721→                </motion.div>
+   722→              </div>
+   723→            </motion.div>
+   724→          )}
+   725→        </AnimatePresence>
+   726→      </div>
+   727→    </section>
+   728→  );
+   729→}
