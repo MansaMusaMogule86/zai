@@ -180,3 +180,22 @@ Stage Summary:
 - Mobile: 44px tap targets with labels + spring-animated product drawer with drag-to-dismiss
 - Hotspot positioning: percentage-based relative to image container (not viewport)
 - Zero lint errors, zero console errors, browser-verified on desktop (1920px) and mobile (iPhone 14)
+---
+Task ID: 12
+Agent: Main Orchestrator
+Task: Strip OpeningSequence to pure matte black editorial title card
+
+Work Log:
+- Removed "ZAINAB AL ALWAN PRESENTS" phase (Phase 1) entirely
+- Removed animate-shimmer span from ZAI wordmark
+- Removed dead AnimatePresence wrapper ({!exiting ? null : null})
+- Simplified phase machine from 4 phases to 3 (wordmark → tagline → exit)
+- Changed inline background style to Tailwind bg-[#0A0A0A] for pure matte black
+- Fixed tagline positioning: absolute with mt-* → flex column with gap-5/gap-7
+- Tightened timing: 4s total (was 5s)
+- Browser verified: dialog HTML contains only h1+skip, zero decorative elements, zero console errors
+
+Stage Summary:
+- Opening is now a minimal editorial title card: matte black, ZAI wordmark, BEAUTY. FASHION. RITUAL. tagline, SKIP
+- All motion is opacity-only fades on typography — no background animation
+- Zero gradients, glowing shapes, moving waves, particles, shine, texture, light leaks, or decorative graphics

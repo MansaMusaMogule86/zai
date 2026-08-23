@@ -5,20 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 
 // ── Phase timing (ms) ───────────────────────────────────────
-const P2 = 1500; // Phase 2 start
-const P3 = 3000; // Phase 3 start
-const P4 = 4000; // Phase 4 — final fade
-const DONE = 5000; // Fully complete
+const P2 = 1200; // Tagline appears
+const P3 = 3000; // Begin exit
+const DONE = 4000; // Fully complete
 
-// ── Opacity-only variants ───────────────────────────────────
+// ── Fade-only variants ──────────────────────────────────────
 
-const presents = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1, ease: 'easeOut' as const } },
-  exit: { opacity: 0, transition: { duration: 0.6, ease: 'easeIn' as const } },
-};
-
-const zai = {
+const wordmark = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 1.2, ease: 'easeOut' as const } },
   exit: { opacity: 0, transition: { duration: 0.8, ease: 'easeIn' as const } },
@@ -36,7 +29,7 @@ const skipBtn = {
 };
 
 // ── Phase type ──────────────────────────────────────────────
-type Phase = 1 | 2 | 3 | 4;
+type Phase = 1 | 2 | 3;
 
 // ── Component ───────────────────────────────────────────────
 
@@ -59,7 +52,6 @@ export default function OpeningSequence() {
     timers.current = [
       setTimeout(() => setPhase(2), P2),
       setTimeout(() => setPhase(3), P3),
-      setTimeout(() => setPhase(4), P4),
       setTimeout(complete, DONE),
     ];
 
@@ -80,74 +72,46 @@ export default function OpeningSequence() {
 
   return (
     <AnimatePresence>
-      {!exiting ? null : null}
       <motion.div
         key="opening-overlay"
-        className="fixed inset-0 z-[100] flex items-center justify-center"
-        style={{ background: '#0A0A0A' }}
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0A0A0A]"
         initial={{ opacity: 1 }}
         exit={{ opacity: 0, transition: { duration: 0.5, ease: 'easeIn' } }}
         aria-live="polite"
         role="dialog"
         aria-label="Opening sequence"
       >
-        <div className="relative flex flex-col items-center justify-center">
-          {/* Phase 1 — Presents text */}
-          <AnimatePresence mode="wait">
-            {phase === 1 && (
-              <motion.p
-                key="presents"
-                variants={presents}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="text-xs tracking-luxe text-zai-ivory/40 font-body select-none"
-              >
-                ZAINAB AL ALWAN PRESENTS
-              </motion.p>
-            )}
-          </AnimatePresence>
+        {/* ── Typography column ── */}
+        <div className="flex flex-col items-center gap-5 md:gap-7">
+          {/* ── ZAI wordmark ── */}
+          <motion.h1
+            variants={wordmark}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="font-display text-7xl md:text-9xl text-zai-ivory tracking-luxe select-none"
+          >
+            ZAI
+          </motion.h1>
 
-          {/* Phase 2+ — ZAI logo with shimmer */}
-          <AnimatePresence mode="wait">
+          {/* ── Tagline ── */}
+          <AnimatePresence>
             {phase >= 2 && (
-              <motion.div
-                key="zai-block"
-                variants={zai}
+              <motion.p
+                key="tagline"
+                variants={tagline}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="flex flex-col items-center"
+                className="text-sm tracking-editorial text-zai-gold/60 font-body select-none"
               >
-                <h1 className="relative font-display text-7xl md:text-9xl text-zai-ivory tracking-luxe select-none">
-                  ZAI
-                  <span
-                    className="absolute inset-0 animate-shimmer pointer-events-none"
-                    aria-hidden
-                  />
-                </h1>
-
-                {/* Phase 3 — Tagline */}
-                <AnimatePresence>
-                  {phase >= 3 && (
-                    <motion.p
-                      key="tagline"
-                      variants={tagline}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      className="mt-6 text-sm tracking-editorial text-zai-gold/60 font-body select-none"
-                    >
-                      BEAUTY. FASHION. RITUAL.
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+                BEAUTY. FASHION. RITUAL.
+              </motion.p>
             )}
           </AnimatePresence>
         </div>
 
-        {/* Skip */}
+        {/* ── Skip ── */}
         <motion.button
           variants={skipBtn}
           initial="hidden"
