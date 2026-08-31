@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
 import { useZaiStore, type ZaiView } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 
@@ -237,19 +236,6 @@ function PortalDoor({ portal, onEnter }: { portal: PortalDef; onEnter: () => voi
           {portal.tagline}
         </p>
       </div>
-
-      {/* Arrow — slides in on hover */}
-      <motion.div
-        className="absolute top-5 right-5 md:top-7 md:right-7 pointer-events-none z-10 p-2 rounded-full bg-black/40 backdrop-blur-sm border border-zai-ivory/10"
-        animate={
-          hovered
-            ? { opacity: 1, x: 0, y: 0 }
-            : { opacity: 0, x: -6, y: 6 }
-        }
-        transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        <ArrowUpRight className="w-4 h-4 md:w-5 md:h-5 text-zai-gold" strokeWidth={1.5} />
-      </motion.div>
     </motion.div>
   );
 }
