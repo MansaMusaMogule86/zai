@@ -1,7 +1,21 @@
 // ═══════════════════════════════════════════════════════════════
 // ZAI CENTRALIZED ASSET MANIFEST
-// Every image path lives here. To replace a placeholder,
-// simply place the correctly named file in the matching path.
+//
+// CRITICAL BRAND ISOLATION RULES:
+// ─────────────────────────────────────────────────────────────
+// Each brand (WORLD / BEAUTÉ / MAISON / HOUSE / ZAINAB) owns
+// its hero assets EXCLUSIVELY. Assignments are deterministic —
+// never derived from a shared array, index, or fallback.
+//
+// HOUSE hero = /images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp
+//   ↑ This is the APPROVED canonical House page hero.
+//   ↑ Do NOT change this assignment without explicit instruction.
+//   ↑ The Beauté product migration MUST NOT affect this path.
+//   ↑ Do NOT inherit from World, Maison, or Founder assets.
+//
+// BEAUTÉ hero = /images/zai/beaute/ZAI_BEAUTE_HERO_CAMPAIGN_DESKTOP_01.webp
+// MAISON hero = /images/zai/maison/ZAINAB_FASHION_FULLBODY_01.webp
+// WORLD hero  = /images/zai/hero/ZAINAB_HERO_DARK_DESKTOP_01.webp
 // ═══════════════════════════════════════════════════════════════
 
 export const BASE = "/assets/zai";
@@ -81,11 +95,19 @@ export const zaiAssets = {
   },
 
   // ── HOUSE OF ZAI ────────────────────────────────────────
+  // ⚠️  ASSET LOCK: heroDesktop/heroMobile must ALWAYS point to
+  //     /images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp
+  //     Do NOT change without explicit instruction.
+  //     Do NOT derive from shared arrays, indexes, or fallbacks.
+  //     Beauté product migrations must never affect this value.
   house: {
     logoPrimary: `${BASE}/04_house_of_zai/logos/house_of_zai_logo_primary.webp`,
+    // ── HOUSE SALON COMPOSITE — beauty services editorial image
     ritual01: `/images/zai/house/HOUSE_OF_ZAI_RITUAL_01.webp`,
+    // ── LOCKED HOUSE HERO — approved Zainab beauty closeup ──
     heroDesktop: `/images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
     heroMobile: `/images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
+    // ── HOUSE SERVICE RESULT IMAGES — Bahrain salon content ──
     brows01: `/images/zai/house/HOUSE_OF_ZAI_BROWS_01.webp`,
     lips01: `/images/zai/house/HOUSE_OF_ZAI_LIPS_01.webp`,
     lashes01: `/images/zai/house/HOUSE_OF_ZAI_LASHES_01.webp`,
