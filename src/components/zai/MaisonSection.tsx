@@ -4,28 +4,74 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
-import ZaiImage from './ZaiImage';
 
-const atelierSequence = [
-  { src: zaiAssets.maison.fashionFullbody01, label: 'ZAINAB WEARS IT', desc: 'The Couture Silhouette' },
-  { src: zaiAssets.maison.sketch01, label: 'THE IDEA', desc: 'Concept & Silhouette' },
-  { src: zaiAssets.maison.atelier01, label: 'THE ATELIER', desc: 'Pattern & Form' },
-  { src: zaiAssets.maison.fabric01, label: 'THE CRAFT', desc: 'Sartorial Tailoring' },
-  { src: zaiAssets.maison.garment01, label: 'THE COLLECTION', desc: 'Bespoke Capsule 001' },
-] as const;
+// ── 5 Real Maison Process Stories ────────────────────────────
+
+interface ProcessStory {
+  id: string;
+  step: string;
+  title: string;
+  quote: string;
+  src: string;
+  alt: string;
+  objectPosition: string;
+}
+
+const processStories: ProcessStory[] = [
+  {
+    id: 'sketch',
+    step: '01 / CONCEPT',
+    title: 'THE SKETCH',
+    quote: 'From the first line, a silhouette begins.',
+    src: zaiAssets.maison.process.sketch,
+    alt: 'ZAI Maison fashion sketches and design concepts',
+    objectPosition: 'center 40%',
+  },
+  {
+    id: 'fabric',
+    step: '02 / MATERIAL',
+    title: 'THE FABRIC',
+    quote: 'Texture, movement and touch shape the direction.',
+    src: zaiAssets.maison.process.fabric,
+    alt: 'ZAI Maison curated fabric swatches',
+    objectPosition: 'center center',
+  },
+  {
+    id: 'pattern',
+    step: '03 / ARCHITECTURE',
+    title: 'THE PATTERN',
+    quote: 'The idea is translated into proportion and form.',
+    src: zaiAssets.maison.process.pattern,
+    alt: 'ZAI Maison garment pattern development',
+    objectPosition: 'center 35%',
+  },
+  {
+    id: 'craft',
+    step: '04 / TECHNIQUE',
+    title: 'THE CRAFT',
+    quote: 'Construction begins by hand.',
+    src: zaiAssets.maison.process.craft,
+    alt: 'ZAI Maison sewing and craftsmanship',
+    objectPosition: 'center center',
+  },
+  {
+    id: 'atelier',
+    step: '05 / REFINEMENT',
+    title: 'THE ATELIER',
+    quote: 'Where every detail is refined.',
+    src: zaiAssets.maison.process.atelier,
+    alt: 'ZAI Maison atelier with dress forms',
+    objectPosition: 'center 35%',
+  },
+];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({
+  hidden: { opacity: 0, y: 24 },
+  visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, delay: i * 0.12, ease: [0.25, 0.46, 0.45, 0.94] },
-  }),
-};
-
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.2 } },
+    transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+  },
 };
 
 export default function MaisonSection() {
@@ -54,19 +100,26 @@ export default function MaisonSection() {
   const inputClass =
     'w-full bg-transparent border-b border-zai-ivory/10 focus:border-zai-gold/50 text-zai-ivory placeholder:text-zai-ivory/20 font-body text-sm pb-3 outline-none transition-colors duration-500';
 
+  const [sketch, fabric, pattern, craft, atelier] = processStories;
+
   return (
     <section className="relative min-h-screen bg-zai-black">
+      {/* Background Ambient Radial Glow */}
       <div
         className="pointer-events-none fixed inset-0"
-        style={{ background: 'radial-gradient(ellipse at 50% 30%, rgba(232,221,208,0.05) 0%, transparent 70%)' }}
+        style={{
+          background:
+            'radial-gradient(ellipse at 50% 30%, rgba(232,221,208,0.04) 0%, transparent 70%)',
+        }}
       />
 
-      {/* Hero */}
+      {/* ── 1. Hero ────────────────────────────────────────── */}
       <div className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden bg-black">
         <img
           src={zaiAssets.maison.heroDesktop}
           alt="ZAI Maison — Silhouette & Fashion"
           className="w-full h-full object-cover object-top"
+          fetchPriority="high"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <motion.button
@@ -98,49 +151,207 @@ export default function MaisonSection() {
         </div>
       </div>
 
-      {/* Atelier */}
-      <div ref={atelierRef} className="px-6 md:px-12 lg:px-24 py-24 md:py-32">
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={atelierInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-xs tracking-editorial text-zai-gold/50 mb-12"
-        >
-          THE ATELIER
-        </motion.p>
-
+      {/* ── 2. The Atelier / Process Section ──────────────── */}
+      <div id="atelier" ref={atelierRef} className="scroll-mt-28 max-w-[1360px] mx-auto px-6 md:px-12 lg:px-16 py-24 md:py-32">
+        {/* Section Intro */}
         <motion.div
-          variants={stagger}
+          variants={fadeUp}
           initial="hidden"
           animate={atelierInView ? 'visible' : 'hidden'}
-          className="hidden md:grid md:grid-cols-3 gap-4"
+          className="mb-12 md:mb-16 max-w-2xl"
         >
-          {atelierSequence.map((item, i) => (
-            <motion.div key={item.label} custom={i} variants={fadeUp} className="relative aspect-[4/5] overflow-hidden group">
-              <ZaiImage src={item.src} alt={item.label} brand="maison" fill className="object-cover transition-transform duration-700 ease-out group-hover:scale-105" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <span className="text-xs tracking-editorial text-maison-linen/70">{item.label}</span>
-              </div>
-            </motion.div>
-          ))}
+          <p className="text-xs tracking-editorial text-zai-gold/60 uppercase font-body mb-3">
+            THE ATELIER
+          </p>
+          <h2 className="font-display text-3xl md:text-5xl text-zai-ivory leading-tight">
+            THE CRAFT OF SILHOUETTE
+          </h2>
+          <p className="mt-4 text-xs md:text-sm text-zai-ivory/60 font-body tracking-wide leading-relaxed">
+            From first line to final form, each piece passes through a deliberate process of material, proportion and hand.
+          </p>
         </motion.div>
 
-        <div
-          className="md:hidden flex gap-3 overflow-x-auto snap-x snap-mandatory pb-4 -mx-6 px-6"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-        >
-          {atelierSequence.map((item, i) => (
-            <motion.div key={item.label} custom={i} variants={fadeUp} initial="hidden" animate={atelierInView ? 'visible' : 'hidden'} className="relative flex-shrink-0 w-[75vw] aspect-[4/5] overflow-hidden snap-center">
-              <ZaiImage src={item.src} alt={item.label} brand="maison" fill className="object-cover" />
-              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-                <span className="text-xs tracking-editorial text-maison-linen/70">{item.label}</span>
+        {/* ── Desktop Editorial Composition (Asymmetric 3-Row Architecture) ── */}
+        <div className="hidden md:flex flex-col gap-6">
+          {/* ROW 1: Large THE SKETCH (~60%) + THE FABRIC (~40%) */}
+          <div className="grid grid-cols-12 gap-6 h-[480px] lg:h-[560px]">
+            {/* The Sketch (60%) */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate={atelierInView ? 'visible' : 'hidden'}
+              className="col-span-7 group relative overflow-hidden bg-[#070707] rounded-sm border border-zai-ivory/10"
+            >
+              <img
+                src={sketch.src}
+                alt={sketch.alt}
+                loading="lazy"
+                style={{ objectPosition: sketch.objectPosition }}
+                className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 z-10 pointer-events-none">
+                <span className="text-[10px] tracking-editorial text-zai-gold/80 uppercase font-body block mb-2">
+                  {sketch.step}
+                </span>
+                <h3 className="font-display text-2xl lg:text-3xl text-zai-ivory tracking-wide">
+                  {sketch.title}
+                </h3>
+                <p className="text-xs lg:text-sm text-zai-ivory/70 font-body mt-2 max-w-md tracking-wide">
+                  &ldquo;{sketch.quote}&rdquo;
+                </p>
               </div>
             </motion.div>
+
+            {/* The Fabric (40%) */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate={atelierInView ? 'visible' : 'hidden'}
+              className="col-span-5 group relative overflow-hidden bg-[#070707] rounded-sm border border-zai-ivory/10"
+            >
+              <img
+                src={fabric.src}
+                alt={fabric.alt}
+                loading="lazy"
+                style={{ objectPosition: fabric.objectPosition }}
+                className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 z-10 pointer-events-none">
+                <span className="text-[10px] tracking-editorial text-zai-gold/80 uppercase font-body block mb-2">
+                  {fabric.step}
+                </span>
+                <h3 className="font-display text-2xl lg:text-3xl text-zai-ivory tracking-wide">
+                  {fabric.title}
+                </h3>
+                <p className="text-xs lg:text-sm text-zai-ivory/70 font-body mt-2 max-w-xs tracking-wide">
+                  &ldquo;{fabric.quote}&rdquo;
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ROW 2: THE PATTERN (~40%) + Large THE CRAFT (~60%) */}
+          <div className="grid grid-cols-12 gap-6 h-[480px] lg:h-[560px]">
+            {/* The Pattern (40%) */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate={atelierInView ? 'visible' : 'hidden'}
+              className="col-span-5 group relative overflow-hidden bg-[#070707] rounded-sm border border-zai-ivory/10"
+            >
+              <img
+                src={pattern.src}
+                alt={pattern.alt}
+                loading="lazy"
+                style={{ objectPosition: pattern.objectPosition }}
+                className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 z-10 pointer-events-none">
+                <span className="text-[10px] tracking-editorial text-zai-gold/80 uppercase font-body block mb-2">
+                  {pattern.step}
+                </span>
+                <h3 className="font-display text-2xl lg:text-3xl text-zai-ivory tracking-wide">
+                  {pattern.title}
+                </h3>
+                <p className="text-xs lg:text-sm text-zai-ivory/70 font-body mt-2 max-w-xs tracking-wide">
+                  &ldquo;{pattern.quote}&rdquo;
+                </p>
+              </div>
+            </motion.div>
+
+            {/* The Craft (60%) */}
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate={atelierInView ? 'visible' : 'hidden'}
+              className="col-span-7 group relative overflow-hidden bg-[#070707] rounded-sm border border-zai-ivory/10"
+            >
+              <img
+                src={craft.src}
+                alt={craft.alt}
+                loading="lazy"
+                style={{ objectPosition: craft.objectPosition }}
+                className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 z-10 pointer-events-none">
+                <span className="text-[10px] tracking-editorial text-zai-gold/80 uppercase font-body block mb-2">
+                  {craft.step}
+                </span>
+                <h3 className="font-display text-2xl lg:text-3xl text-zai-ivory tracking-wide">
+                  {craft.title}
+                </h3>
+                <p className="text-xs lg:text-sm text-zai-ivory/70 font-body mt-2 max-w-md tracking-wide">
+                  &ldquo;{craft.quote}&rdquo;
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ROW 3: Full-Width Visual Finale — THE ATELIER */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            animate={atelierInView ? 'visible' : 'hidden'}
+            className="w-full h-[460px] lg:h-[540px] group relative overflow-hidden bg-[#070707] rounded-sm border border-zai-ivory/10"
+          >
+            <img
+              src={atelier.src}
+              alt={atelier.alt}
+              loading="lazy"
+              style={{ objectPosition: atelier.objectPosition }}
+              className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/35 to-transparent pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-12 z-10 pointer-events-none">
+              <span className="text-[10px] tracking-editorial text-zai-gold/80 uppercase font-body block mb-2">
+                {atelier.step}
+              </span>
+              <h3 className="font-display text-3xl lg:text-4xl text-zai-ivory tracking-wide">
+                {atelier.title}
+              </h3>
+              <p className="text-xs lg:text-sm text-zai-ivory/70 font-body mt-2 max-w-lg tracking-wide">
+                &ldquo;{atelier.quote}&rdquo;
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ── Mobile Layout (Dedicated Vertical Editorial Stack) ── */}
+        <div className="flex flex-col gap-5 md:hidden">
+          {processStories.map((item) => (
+            <div
+              key={item.id}
+              className="relative w-full aspect-[4/5] overflow-hidden rounded-sm bg-[#070707] border border-zai-ivory/10"
+            >
+              <img
+                src={item.src}
+                alt={item.alt}
+                loading="lazy"
+                style={{ objectPosition: item.objectPosition }}
+                className="w-full h-full object-cover select-none pointer-events-none"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 p-6 z-10 pointer-events-none">
+                <span className="text-[9px] tracking-editorial text-zai-gold/80 uppercase font-body block mb-1.5">
+                  {item.step}
+                </span>
+                <h3 className="font-display text-2xl text-zai-ivory tracking-wide">
+                  {item.title}
+                </h3>
+                <p className="text-xs text-zai-ivory/70 font-body mt-1.5 tracking-wide leading-relaxed">
+                  &ldquo;{item.quote}&rdquo;
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
 
-      {/* Private Access */}
+      {/* ── 3. Private Access ──────────────────────────────── */}
       <div className="px-6 md:px-12 lg:px-24 py-24 md:py-32">
         <div className="max-w-xl mx-auto text-center">
           <motion.h2
@@ -254,28 +465,6 @@ export default function MaisonSection() {
             )}
           </AnimatePresence>
         </div>
-      </div>
-
-      {/* Campaign */}
-      <div ref={campaignRef} className="px-6 md:px-12 lg:px-24 pb-24 md:pb-32">
-        <motion.p
-          initial={{ opacity: 0, y: 15 }}
-          animate={campaignInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-xs tracking-editorial text-zai-gold/50 mb-8"
-        >
-          THE CAMPAIGN
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={campaignInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative overflow-hidden"
-        >
-          <div className="relative aspect-[4/5] md:aspect-video w-full">
-            <ZaiImage src={zaiAssets.maison.campaign01} alt="ZAI Maison Campaign" brand="maison" fill className="object-cover" />
-          </div>
-        </motion.div>
       </div>
     </section>
   );
