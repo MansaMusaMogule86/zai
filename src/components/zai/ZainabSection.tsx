@@ -1,11 +1,11 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { Variants,  motion } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 import ZaiImage from './ZaiImage';
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   visible: {
     transition: {
@@ -15,7 +15,7 @@ const stagger = {
   },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } },
 };

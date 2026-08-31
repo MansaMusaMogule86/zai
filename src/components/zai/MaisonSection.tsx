@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { Variants,  motion, AnimatePresence, useInView } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 
@@ -65,7 +65,7 @@ const processStories: ProcessStory[] = [
   },
 ];
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,

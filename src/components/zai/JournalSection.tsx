@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Variants,  motion, AnimatePresence } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { journalArticles, type JournalArticle } from '@/lib/products';
 import { zaiAssets } from '@/lib/assets';
@@ -41,14 +41,14 @@ function formatDate(dateStr: string) {
   });
 }
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   visible: {
     transition: { staggerChildren: 0.08, delayChildren: 0.1 },
   },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } },
 };

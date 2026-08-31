@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useMemo } from 'react';
-import { motion, AnimatePresence, useInView } from 'framer-motion';
+import { Variants,  motion, AnimatePresence, useInView } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 import { houseServices, type HouseService } from '@/lib/products';
@@ -15,7 +15,7 @@ const TIME_SLOTS = [
 const ARTISTS = ['Any Available', 'Zainab'] as const;
 
 /* ── Animation Helpers ────────────────────────────────── */
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
@@ -24,7 +24,7 @@ const fadeUp = {
   }),
 };
 
-const stagger = {
+const stagger: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
 };

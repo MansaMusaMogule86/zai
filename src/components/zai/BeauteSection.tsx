@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
+import { Variants,  motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { useZaiStore } from '@/lib/store';
 import { products, getShopUrl, type Product, type ProductShade } from '@/lib/products';
@@ -43,7 +43,7 @@ function filterProducts(key: FilterKey): Product[] {
 
 // ── Animation variants ───────────────────────────────────────
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
@@ -52,7 +52,7 @@ const fadeUp = {
   },
 };
 
-const stagger = {
+const stagger: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -60,7 +60,7 @@ const stagger = {
   },
 };
 
-const heroStagger = {
+const heroStagger: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,

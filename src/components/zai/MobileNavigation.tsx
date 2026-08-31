@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Variants,  motion, AnimatePresence } from 'framer-motion';
 import { useZaiStore, type ZaiView } from '@/lib/store';
 
 const menuItems: { num: string; label: string; view: ZaiView }[] = [
@@ -25,7 +25,7 @@ const overlayVariants = {
   exit: { opacity: 0 },
 };
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -40,7 +40,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: {
     opacity: 0,
     y: 30,
