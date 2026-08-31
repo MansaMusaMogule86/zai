@@ -8,6 +8,8 @@ import { products, getShopUrl, type Product, type ProductShade } from '@/lib/pro
 import { zaiAssets } from '@/lib/assets';
 import ZaiImage from './ZaiImage';
 
+import BeauteIntro from './BeauteIntro';
+
 // ── Asset lookup ─────────────────────────────────────────────
 
 const beauteAssets = zaiAssets.beaute as Record<string, string>;
@@ -93,6 +95,9 @@ export default function BeauteSection() {
 
   return (
     <div className="relative min-h-screen bg-zai-black">
+      {/* 3D Logo Intro Sequence */}
+      <BeauteIntro />
+
       {/* Subtle cobalt radial glow top-right */}
       <div
         className="fixed top-0 right-0 w-[60vw] h-[60vh] pointer-events-none z-0"
@@ -102,28 +107,37 @@ export default function BeauteSection() {
       />
 
       {/* ═══ 1. BEAUTÉ HERO ═══════════════════════════════ */}
-      <section className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden">
-        <ZaiImage
-          src={zaiAssets.beaute.heroDesktop}
-          alt="ZAI Beauté campaign"
-          brand="beaute"
-          fill
-          className="object-cover"
-          priority
-        />
+      <section className="relative min-h-[75vh] md:min-h-screen w-full overflow-hidden flex flex-col justify-between">
+        {/* Responsive campaign picture */}
+        <picture className="absolute inset-0 w-full h-full">
+          <source
+            media="(max-width: 768px)"
+            srcSet={zaiAssets.beaute.heroMobile}
+          />
+          <source
+            media="(min-width: 769px)"
+            srcSet={zaiAssets.beaute.heroDesktop}
+          />
+          <img
+            src={zaiAssets.beaute.heroDesktop}
+            alt="ZAI Beauté — Your skin. Your shade. Your Zai."
+            className="w-full h-full object-cover object-center"
+            fetchPriority="high"
+          />
+        </picture>
 
-        {/* Cobalt overlay */}
+        {/* Subtle dark transition gradient at the very bottom into the next section */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-x-0 bottom-0 h-32 pointer-events-none"
           style={{
-            background: 'linear-gradient(to top, rgba(27, 58, 92, 0.7) 0%, rgba(27, 58, 92, 0.2) 40%, transparent 70%)',
+            background: 'linear-gradient(to top, rgba(10, 10, 10, 0.85) 0%, transparent 100%)',
           }}
         />
 
         {/* Back button */}
         <motion.button
           onClick={() => setView('home')}
-          className="absolute top-6 left-6 md:top-10 md:left-10 z-10 text-xs tracking-editorial text-zai-ivory/70 hover:text-zai-ivory transition-colors duration-300 flex items-center gap-2 cursor-pointer"
+          className="absolute top-20 left-6 md:top-20 md:left-10 z-10 text-xs tracking-editorial text-zai-ivory/80 hover:text-zai-ivory transition-colors duration-300 flex items-center gap-2 cursor-pointer bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10"
           initial={{ opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.5, duration: 0.6 }}
@@ -132,30 +146,22 @@ export default function BeauteSection() {
           WORLD
         </motion.button>
 
-        {/* Hero content */}
+        {/* Accessible heading for SEO (branding and copy is embedded in high-res artwork) */}
+        <h1 className="sr-only">ZAI Beauté — Your skin. Your shade. Your Zai.</h1>
+
+        {/* Hero actions positioned cleanly at the bottom without covering model or text */}
         <motion.div
           variants={heroStagger}
           initial="hidden"
           animate="visible"
-          className="absolute bottom-0 left-0 right-0 p-6 md:p-12 lg:p-20 z-10"
+          className="relative mt-auto p-6 md:p-12 lg:p-20 z-10 flex flex-wrap gap-3 items-end"
         >
-          <motion.h1
-            variants={fadeUp}
-            className="font-display text-4xl md:text-6xl lg:text-7xl text-white leading-[1.05] max-w-3xl"
-          >
-            YOUR SKIN. YOUR SHADE.
-            <br />
-            YOUR ZAI.
-          </motion.h1>
-
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mt-8">
-            <button onClick={scrollToProducts} className="btn-gold cursor-pointer">
-              DISCOVER BEAUTÉ
-            </button>
-            <button onClick={() => setView('mirror')} className="btn-luxury cursor-pointer">
-              FIND MY ZAI
-            </button>
-          </motion.div>
+          <button onClick={scrollToProducts} className="btn-gold cursor-pointer">
+            DISCOVER BEAUTÉ
+          </button>
+          <button onClick={() => setView('mirror')} className="btn-luxury cursor-pointer">
+            FIND MY ZAI
+          </button>
         </motion.div>
       </section>
 
@@ -167,62 +173,50 @@ export default function BeauteSection() {
             initial="hidden"
             animate={campaignInView ? 'visible' : 'hidden'}
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-xs tracking-editorial text-zai-gold/50 font-body"
-            >
-              THE CAMPAIGN
-            </motion.p>
-
-            {/* Desktop: side by side */}
-            <div className="hidden md:grid md:grid-cols-2 gap-3 mt-8">
-              {[zaiAssets.beaute.campaignCloseup01, zaiAssets.beaute.campaignCloseup02].map(
-                (src, i) => (
-                  <motion.div
-                    key={i}
-                    variants={fadeUp}
-                    className="relative aspect-[4/5] overflow-hidden rounded-sm"
-                  >
-                    <ZaiImage
-                      src={src}
-                      alt={`ZAI Beauté campaign ${i + 1}`}
-                      brand="beaute"
-                      fill
-                      className="object-cover img-editorial"
-                    />
-                  </motion.div>
-                ),
-              )}
-            </div>
-
-            {/* Mobile: horizontal scroll */}
-            <div className="md:hidden -mx-6 mt-8">
-              <div
-                className="flex gap-3 overflow-x-auto snap-x snap-mandatory px-6 pb-4"
-                style={{
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                }}
-              >
-                {[zaiAssets.beaute.campaignCloseup01, zaiAssets.beaute.campaignCloseup02].map(
-                  (src, i) => (
-                    <motion.div
-                      key={i}
-                      variants={fadeUp}
-                      className="snap-start shrink-0 w-[80vw] relative aspect-[4/5] overflow-hidden rounded-sm"
-                    >
-                      <ZaiImage
-                        src={src}
-                        alt={`ZAI Beauté campaign ${i + 1}`}
-                        brand="beaute"
-                        fill
-                        className="object-cover"
-                      />
-                    </motion.div>
-                  ),
-                )}
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+              <div>
+                <motion.p
+                  variants={fadeUp}
+                  className="text-xs tracking-editorial text-zai-gold/50 font-body uppercase"
+                >
+                  THE CAMPAIGN
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  className="font-display text-3xl md:text-5xl text-zai-ivory mt-2"
+                >
+                  RADIANCE & FORM
+                </motion.h2>
               </div>
+              <motion.p
+                variants={fadeUp}
+                className="text-xs tracking-editorial text-zai-ivory/40 font-body max-w-sm"
+              >
+                Skin-true texture, sculptural warmth and effortless light.
+              </motion.p>
             </div>
+
+            {/* Single strong oversized editorial card */}
+            <motion.div
+              variants={fadeUp}
+              className="relative max-w-4xl mx-auto aspect-[4/5] sm:aspect-[16/10] overflow-hidden rounded-sm border border-zai-gold/15 shadow-2xl"
+            >
+              <img
+                src={zaiAssets.beaute.campaignCloseup01}
+                alt="ZAI Beauté Campaign Editorial — Gloss Profile"
+                className="w-full h-full object-cover object-top"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-6 left-6 md:bottom-8 md:left-8 z-10">
+                <p className="text-[10px] tracking-editorial text-zai-gold/70 uppercase mb-1">
+                  EDITORIAL NO. 01
+                </p>
+                <p className="font-display text-lg md:text-2xl text-zai-ivory">
+                  GLOSS PROFILE
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>

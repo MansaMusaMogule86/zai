@@ -331,17 +331,16 @@ export default function ShopTheLook() {
             When the real image loads, onImageLoad fires → showHotspots becomes true.
             When it fails, onImageError fires → imageErrored true → hotspots stay hidden.
           */}
-          <ZaiImage
-            src={imageSrc}
-            alt={imageDescription}
-            filename={imageFilename}
-            description={imageDescription}
-            brand="zai"
-            fill
-            className="object-cover object-top select-none"
-            priority={false}
-            onImageLoad={handleImageLoad}
-            onImageError={handleImageError}
+          <video
+            src={zaiAssets.zainab.shopTheLookVideo01}
+            poster={isMobile ? zaiAssets.zainab.shopTheLookMobile01 : zaiAssets.zainab.shopTheLook01}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            onLoadedData={handleImageLoad}
+            className="w-full h-full object-cover object-top select-none"
           />
 
           {/*

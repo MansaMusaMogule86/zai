@@ -52,13 +52,15 @@ export default function HeroSection() {
             animate={{ scale: 1 }}
             transition={{ duration: 20, ease: 'linear' }}
           >
-            <ZaiImage
-              src={zaiAssets.zainab.heroDesktop}
-              alt="Zainab Al Alwan — hero portrait"
-              brand="zai"
-              fill
-              className="object-cover object-top"
-              priority
+            <video
+              src={zaiAssets.zainab.heroVideo}
+              poster={zaiAssets.zainab.heroDesktop}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="w-full h-full object-cover object-top"
             />
           </motion.div>
 
@@ -132,13 +134,15 @@ export default function HeroSection() {
             animate={{ scale: 1 }}
             transition={{ duration: 20, ease: 'linear' }}
           >
-            <ZaiImage
-              src={zaiAssets.zainab.heroMobile}
-              alt="Zainab Al Alwan — hero portrait"
-              brand="zai"
-              fill
-              className="object-cover object-top"
-              priority
+            <video
+              src={zaiAssets.zainab.heroVideo}
+              poster={zaiAssets.zainab.heroMobile}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="metadata"
+              className="w-full h-full object-cover object-top"
             />
           </motion.div>
 

@@ -21,6 +21,10 @@ interface ZaiState {
   hasSeenOpening: boolean;
   setHasSeenOpening: (v: boolean) => void;
 
+  // Beauté Intro
+  hasSeenBeauteIntro: boolean;
+  setHasSeenBeauteIntro: (v: boolean) => void;
+
   // Mobile nav
   mobileNavOpen: boolean;
   setMobileNavOpen: (v: boolean) => void;
@@ -62,6 +66,9 @@ export const useZaiStore = create<ZaiState>((set) => ({
 
   hasSeenOpening: false,
   setHasSeenOpening: (v) => set({ hasSeenOpening: v }),
+
+  hasSeenBeauteIntro: false,
+  setHasSeenBeauteIntro: (v) => set({ hasSeenBeauteIntro: v }),
 
   mobileNavOpen: false,
   setMobileNavOpen: (v) => set({ mobileNavOpen: v }),

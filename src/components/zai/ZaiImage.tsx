@@ -49,15 +49,7 @@ export default function ZaiImage({
   }, [onImageLoad]);
 
   if (hasError) {
-    return (
-      <AssetPlaceholder
-        filename={filename ?? (typeof src === 'string' ? extractFilename(src) : String(src))}
-        ratio={ratio}
-        description={description ?? alt}
-        brand={brand}
-        className={className}
-      />
-    );
+    return null;
   }
 
   return (

@@ -12,7 +12,7 @@ export const zaiAssets = {
     heroDesktop: `/images/zai/hero/ZAINAB_HERO_DARK_DESKTOP_01.webp`,
     heroMobile: `/images/zai/hero/ZAINAB_HERO_DARK_MOBILE_01.webp`,
     heroVideo: `/images/zai/hero/ZAINAB_HERO_VIDEO_01.mp4`,
-    beautyCloseup01: `${BASE}/01_zainab/beauty/zainab_beauty_closeup_01.webp`,
+    beautyCloseup01: `/images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
     beautyCloseup02: `${BASE}/01_zainab/beauty/zainab_beauty_closeup_02.webp`,
     shopTheLook01: `/images/zai/shop-the-look/ZAINAB_SHOP_THE_LOOK_DESKTOP_01.webp`,
     shopTheLookMobile01: `/images/zai/shop-the-look/ZAINAB_SHOP_THE_LOOK_MOBILE_01.webp`,
@@ -28,10 +28,10 @@ export const zaiAssets = {
 
   // ── ZAI BEAUTÉ ─────────────────────────────────────────
   beaute: {
-    logoPrimary: `${BASE}/02_zai_beaute/logos/zai_beaute_logo_primary.webp`,
-    heroDesktop: `${BASE}/02_zai_beaute/hero/zai_beaute_hero_campaign_desktop_01.webp`,
-    heroMobile: `${BASE}/02_zai_beaute/hero/zai_beaute_hero_campaign_mobile_01.webp`,
-    campaignCloseup01: `${BASE}/02_zai_beaute/campaigns/zai_beaute_campaign_closeup_01.webp`,
+    logoPrimary: `/images/zai/beaute/ZAI_BEAUTE_LOGO_3D_TRANSPARENT_01.png`,
+    heroDesktop: `/images/zai/beaute/ZAI_BEAUTE_HERO_CAMPAIGN_DESKTOP_01.webp`,
+    heroMobile: `/images/zai/beaute/ZAI_BEAUTE_HERO_CAMPAIGN_MOBILE_01.webp`,
+    campaignCloseup01: `/images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
     campaignCloseup02: `${BASE}/02_zai_beaute/campaigns/zai_beaute_campaign_closeup_02.webp`,
     productFoundation: `${BASE}/02_zai_beaute/products/zai_beaute_product_foundation_01.webp`,
     productLipstick: `${BASE}/02_zai_beaute/products/zai_beaute_product_lipstick_01.webp`,
