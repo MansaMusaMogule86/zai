@@ -77,7 +77,7 @@ export default function HouseSection() {
   };
 
   const handleNext = () => {
-    setBookingStep((bookingStep) => Math.min(bookingStep + 1, 5));
+    setBookingStep(Math.min(bookingStep + 1, 5));
   };
 
   const handleBack = () => {
@@ -85,7 +85,7 @@ export default function HouseSection() {
       setBookingStep(0);
       return;
     }
-    setBookingStep((bookingStep) => bookingStep - 1);
+    setBookingStep(bookingStep - 1);
   };
 
   const canProceed = () => {
@@ -101,7 +101,7 @@ export default function HouseSection() {
   const isBookingOpen = bookingStep > 0;
 
   return (
-    <section className="relative min-h-screen bg-zai-black">
+    <section className="relative bg-zai-black">
       {/* Subtle warm pearl/champagne radial gradient */}
       <div
         className="pointer-events-none fixed inset-0"
@@ -109,11 +109,11 @@ export default function HouseSection() {
       />
 
       {/* ── 1. HOUSE HERO ──────────────────────────────── */}
-      <div className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden bg-black">
+      <div className="relative w-full overflow-hidden bg-black h-[520px] max-h-[58svh] min-h-[440px] md:h-[560px] md:max-h-[65vh] lg:h-[620px] lg:max-h-[68vh] lg:min-h-[520px]">
         <img
           src={zaiAssets.house.heroDesktop}
           alt="House of ZAI — Ritual & Beauty Services"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-cover object-[52%_35%] lg:object-[center_38%]"
         />
 
         {/* Warm dark gradient from bottom */}
@@ -155,7 +155,7 @@ export default function HouseSection() {
       </div>
 
       {/* ── 2. SERVICES GRID ────────────────────────────── */}
-      <div ref={servicesRef} className="px-6 md:px-12 lg:px-24 py-24 md:py-32">
+      <div ref={servicesRef} className="px-6 md:px-12 lg:px-24 pt-16 pb-24 md:pt-20 md:pb-32">
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={servicesInView ? { opacity: 1, y: 0 } : {}}
