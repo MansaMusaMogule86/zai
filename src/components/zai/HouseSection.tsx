@@ -109,14 +109,11 @@ export default function HouseSection() {
       />
 
       {/* ── 1. HOUSE HERO ──────────────────────────────── */}
-      <div className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden">
-        <ZaiImage
+      <div className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden bg-black">
+        <img
           src={zaiAssets.house.heroDesktop}
-          alt="House of ZAI Hero"
-          brand="house"
-          fill
-          className="object-cover"
-          priority
+          alt="House of ZAI — Ritual & Beauty Services"
+          className="w-full h-full object-cover object-center"
         />
 
         {/* Warm dark gradient from bottom */}
@@ -465,40 +462,57 @@ export default function HouseSection() {
         </AnimatePresence>
       </div>
 
-      {/* ── 4. INTERIOR SECTION ─────────────────────────── */}
+      {/* ── 4. REAL SALON RESULTS GALLERY ──────────────── */}
       <div ref={interiorRef} className="px-6 md:px-12 lg:px-24 pb-24 md:pb-32">
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={interiorInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-xs tracking-editorial text-zai-gold/50 mb-3"
+          className="text-xs tracking-editorial text-zai-gold/50 mb-3 uppercase"
         >
-          THE SPACE
+          THE SALON RESULTS
         </motion.p>
         <motion.p
           initial={{ opacity: 0, y: 15 }}
           animate={interiorInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-sm text-zai-ivory/40 mb-8"
+          className="text-sm text-zai-ivory/60 mb-10 font-body"
         >
-          A private sanctuary for beauty rituals.
+          Real brow, lip, lash, and nail artistry from the House of Zai salon in Bahrain.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={interiorInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative overflow-hidden"
+          className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6"
         >
-          <div className="relative aspect-video w-full">
-            <ZaiImage
-              src={zaiAssets.house.interior01}
-              alt="House of ZAI Interior"
-              brand="house"
-              fill
-              className="object-cover"
-            />
-          </div>
+          {[
+            { title: 'BROWS', label: 'Mapping & Lamination', img: zaiAssets.house.brows01 },
+            { title: 'LASHES', label: 'Lift & Extensions', img: zaiAssets.house.lashes01 },
+            { title: 'LIPS', label: 'Pigmentation & Blush', img: zaiAssets.house.lips01 },
+            { title: 'NAILS', label: 'Gel Art & Care', img: zaiAssets.house.nails01 },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="group relative aspect-[4/5] overflow-hidden rounded-sm border border-zai-ivory/10 bg-[#070707]"
+            >
+              <img
+                src={item.img}
+                alt={`House of Zai ${item.title}`}
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 select-none"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute bottom-0 left-0 right-0 p-4">
+                <span className="text-[10px] tracking-editorial text-zai-gold/75 uppercase block font-body">
+                  {item.title}
+                </span>
+                <span className="font-display text-sm text-zai-ivory">
+                  {item.label}
+                </span>
+              </div>
+            </div>
+          ))}
         </motion.div>
       </div>
     </section>

@@ -7,12 +7,11 @@ import { zaiAssets } from '@/lib/assets';
 import ZaiImage from './ZaiImage';
 
 const atelierSequence = [
-  { src: zaiAssets.maison.sketch01, label: 'THE SKETCH' },
-  { src: zaiAssets.maison.fabric01, label: 'THE FABRIC' },
-  { src: zaiAssets.maison.pattern01, label: 'THE PATTERN' },
-  { src: zaiAssets.maison.atelier01, label: 'THE ATELIER' },
-  { src: zaiAssets.maison.atelier02, label: 'THE CRAFT' },
-  { src: zaiAssets.maison.garment01, label: 'THE PIECE' },
+  { src: zaiAssets.maison.fashionFullbody01, label: 'ZAINAB WEARS IT', desc: 'The Couture Silhouette' },
+  { src: zaiAssets.maison.sketch01, label: 'THE IDEA', desc: 'Concept & Silhouette' },
+  { src: zaiAssets.maison.atelier01, label: 'THE ATELIER', desc: 'Pattern & Form' },
+  { src: zaiAssets.maison.fabric01, label: 'THE CRAFT', desc: 'Sartorial Tailoring' },
+  { src: zaiAssets.maison.garment01, label: 'THE COLLECTION', desc: 'Bespoke Capsule 001' },
 ] as const;
 
 const fadeUp = {
@@ -63,8 +62,12 @@ export default function MaisonSection() {
       />
 
       {/* Hero */}
-      <div className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden">
-        <ZaiImage src={zaiAssets.maison.heroDesktop} alt="ZAI Maison Hero" brand="maison" fill className="object-cover" priority />
+      <div className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden bg-black">
+        <img
+          src={zaiAssets.maison.heroDesktop}
+          alt="ZAI Maison — Silhouette & Fashion"
+          className="w-full h-full object-cover object-top"
+        />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <motion.button
           initial={{ opacity: 0 }}
