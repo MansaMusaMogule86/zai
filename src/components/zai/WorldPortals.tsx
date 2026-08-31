@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, Variants } from 'framer-motion';
 import { useZaiStore, type ZaiView } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 
@@ -53,7 +53,7 @@ const portals: PortalDef[] = [
 
 // ── Animation variants ───────────────────────────────────────
 
-const headingContainer = {
+const headingContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -61,7 +61,7 @@ const headingContainer = {
   },
 };
 
-const headingItem = {
+const headingItem: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -70,7 +70,7 @@ const headingItem = {
   },
 };
 
-const portalContainer = {
+const portalContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
@@ -78,7 +78,7 @@ const portalContainer = {
   },
 };
 
-const portalItem = {
+const portalItem: Variants = {
   hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
