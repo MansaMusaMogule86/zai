@@ -25,6 +25,10 @@ interface ZaiState {
   hasSeenBeauteIntro: boolean;
   setHasSeenBeauteIntro: (v: boolean) => void;
 
+  // World Landing Entry (Cinematic hero mode vs normal navigation mode)
+  hasEnteredWorld: boolean;
+  setHasEnteredWorld: (v: boolean) => void;
+
   // Mobile nav
   mobileNavOpen: boolean;
   setMobileNavOpen: (v: boolean) => void;
@@ -69,6 +73,16 @@ export const useZaiStore = create<ZaiState>((set) => ({
 
   hasSeenBeauteIntro: false,
   setHasSeenBeauteIntro: (v) => set({ hasSeenBeauteIntro: v }),
+
+  hasEnteredWorld: false,
+  setHasEnteredWorld: (v) => {
+    if (typeof window !== 'undefined' && v) {
+      try {
+        sessionStorage.setItem('zai_has_entered_world', 'true');
+      } catch {}
+    }
+    set({ hasEnteredWorld: v });
+  },
 
   mobileNavOpen: false,
   setMobileNavOpen: (v) => set({ mobileNavOpen: v }),

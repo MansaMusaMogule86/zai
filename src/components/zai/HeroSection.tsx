@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
-import ZaiImage from './ZaiImage';
+import LuxuryPortraitVideo from './LuxuryPortraitVideo';
 
 // ── Stagger container ───────────────────────────────────────
 
@@ -28,11 +28,12 @@ const item = {
 // ── Component ───────────────────────────────────────────────
 
 export default function HeroSection() {
-  const { setView } = useZaiStore();
+  const { setView, setHasEnteredWorld } = useZaiStore();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
-  const scrollToPortals = () => {
+  const handleEnterWorld = () => {
+    setHasEnteredWorld(true);
     document.getElementById('world-portals')?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -44,34 +45,24 @@ export default function HeroSection() {
     >
       {/* Desktop: split layout ─────────────────────────── */}
       <div className="hidden md:grid md:grid-cols-[60%_40%] min-h-screen">
-        {/* Left — hero image with slow zoom */}
-        <div className="relative overflow-hidden">
-          <motion.div
-            className="absolute inset-0"
-            initial={{ scale: 1.05 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 20, ease: 'linear' }}
-          >
-            <video
-              src={zaiAssets.zainab.heroVideo}
-              poster={zaiAssets.zainab.heroDesktop}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="w-full h-full object-cover object-top"
-            />
-          </motion.div>
+        {/* Left — cinematic beach video panel (two-layer contain + blurred cover) */}
+        <div className="relative w-full h-full min-h-screen overflow-hidden bg-[#050505]">
+          <LuxuryPortraitVideo
+            src={zaiAssets.zainab.heroVideo}
+            posterDesktop={zaiAssets.zainab.heroDesktop}
+            posterMobile={zaiAssets.zainab.heroMobile}
+            preload="auto"
+            priority
+          />
 
           {/* Private digital concept label */}
-          <span className="absolute bottom-4 left-4 text-[10px] tracking-editorial text-zai-ivory/15 font-body select-none">
+          <span className="absolute bottom-4 left-4 z-10 text-[10px] tracking-editorial text-zai-ivory/20 font-body select-none pointer-events-none">
             PRIVATE DIGITAL CONCEPT
           </span>
         </div>
 
-        {/* Right — typography */}
-        <div className="flex items-center justify-center px-12 xl:px-20">
+        {/* Right — luxury typography panel */}
+        <div className="flex items-center justify-center px-12 xl:px-20 bg-zai-black">
           <motion.div
             variants={container}
             initial="hidden"
@@ -80,7 +71,7 @@ export default function HeroSection() {
           >
             <motion.p
               variants={item}
-              className="text-xs tracking-editorial text-zai-gold/50 font-body"
+              className="text-xs tracking-editorial text-zai-gold/50 font-body uppercase"
             >
               THE WORLD OF ZAI
             </motion.p>
@@ -108,7 +99,7 @@ export default function HeroSection() {
 
             <motion.div variants={item} className="flex flex-wrap gap-4 mt-4">
               <button
-                onClick={scrollToPortals}
+                onClick={handleEnterWorld}
                 className="btn-gold cursor-pointer"
               >
                 ENTER THE WORLD
@@ -126,33 +117,22 @@ export default function HeroSection() {
 
       {/* Mobile: stacked layout ──────────────────────────── */}
       <div className="flex flex-col md:hidden">
-        {/* Hero image — top ~60vh with slow zoom */}
-        <div className="relative h-[60vh] overflow-hidden">
-          <motion.div
-            className="absolute inset-0"
-            initial={{ scale: 1.05 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 20, ease: 'linear' }}
-          >
-            <video
-              src={zaiAssets.zainab.heroVideo}
-              poster={zaiAssets.zainab.heroMobile}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              className="w-full h-full object-cover object-top"
-            />
-          </motion.div>
+        {/* Mobile beach video — top ~65vh container with two-layer contain */}
+        <div className="relative h-[65vh] overflow-hidden bg-[#050505]">
+          <LuxuryPortraitVideo
+            src={zaiAssets.zainab.heroVideo}
+            posterDesktop={zaiAssets.zainab.heroDesktop}
+            posterMobile={zaiAssets.zainab.heroMobile}
+            preload="auto"
+          />
 
-          <span className="absolute bottom-4 left-4 text-[10px] tracking-editorial text-zai-ivory/15 font-body select-none">
+          <span className="absolute bottom-4 left-4 z-10 text-[10px] tracking-editorial text-zai-ivory/20 font-body select-none pointer-events-none">
             PRIVATE DIGITAL CONCEPT
           </span>
         </div>
 
         {/* Typography below image */}
-        <div className="flex-1 flex items-center px-6 py-12">
+        <div className="flex-1 flex items-center px-6 py-12 bg-zai-black">
           <motion.div
             variants={container}
             initial="hidden"
@@ -161,7 +141,7 @@ export default function HeroSection() {
           >
             <motion.p
               variants={item}
-              className="text-xs tracking-editorial text-zai-gold/50 font-body"
+              className="text-xs tracking-editorial text-zai-gold/50 font-body uppercase"
             >
               THE WORLD OF ZAI
             </motion.p>
@@ -182,21 +162,21 @@ export default function HeroSection() {
 
             <motion.p
               variants={item}
-              className="text-sm text-zai-ivory/50 font-body mt-1"
+              className="text-sm text-zai-ivory/50 font-body mt-2"
             >
               Created by Zainab Al Alwan
             </motion.p>
 
-            <motion.div variants={item} className="flex flex-col gap-3 mt-4">
+            <motion.div variants={item} className="flex flex-wrap gap-3 mt-4">
               <button
-                onClick={scrollToPortals}
-                className="btn-gold cursor-pointer text-center"
+                onClick={handleEnterWorld}
+                className="btn-gold cursor-pointer"
               >
                 ENTER THE WORLD
               </button>
               <button
                 onClick={() => setView('mirror')}
-                className="btn-luxury cursor-pointer text-center"
+                className="btn-luxury cursor-pointer"
               >
                 FIND MY ZAI
               </button>

@@ -44,32 +44,19 @@ export default function ZainabSection() {
   return (
     <div className="min-h-screen bg-zai-black">
       {/* ── 1. Hero ──────────────────────────────── */}
-      <section className="relative w-full min-h-[70vh]">
-        {/* Desktop hero */}
-        <div className="hidden md:block relative w-full h-[70vh]">
-          <ZaiImage
+      <section className="relative w-full min-h-[70vh] md:min-h-[85vh] overflow-hidden">
+        {/* Large Founder Image Filling Hero Area */}
+        <div className="relative w-full h-[70vh] md:h-[85vh] overflow-hidden bg-black">
+          <img
             src={zaiAssets.zainab.founderWide01}
-            brand="zai"
-            alt="Zainab Al Alwan — Wide Portrait"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        {/* Mobile hero */}
-        <div className="md:hidden relative w-full" style={{ aspectRatio: '3/4' }}>
-          <ZaiImage
-            src={zaiAssets.zainab.founderWide01}
-            brand="zai"
-            alt="Zainab Al Alwan — Portrait"
-            fill
-            className="object-cover"
-            priority
+            alt="Zainab Al Alwan — Founder"
+            className="w-full h-full object-cover object-center"
+            fetchPriority="high"
           />
         </div>
 
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
 
         {/* Content */}
         <motion.div

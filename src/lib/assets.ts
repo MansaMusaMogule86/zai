@@ -20,7 +20,7 @@ export const zaiAssets = {
     fashionFullbody01: `${BASE}/01_zainab/fashion/zainab_fashion_fullbody_01.webp`,
     fashionWide01: `${BASE}/01_zainab/fashion/zainab_fashion_wide_01.webp`,
     founderPortrait01: `${BASE}/01_zainab/founder/zainab_founder_portrait_01.webp`,
-    founderWide01: `${BASE}/01_zainab/founder/zainab_founder_wide_01.webp`,
+    founderWide01: `/images/zai/founder/ZAINAB_FOUNDER_WIDE_01.webp`,
     editorialPortrait01: `${BASE}/01_zainab/portraits/zainab_editorial_portrait_01.webp`,
     editorialPortrait02: `${BASE}/01_zainab/portraits/zainab_editorial_portrait_02.webp`,
     editorialWide01: `${BASE}/01_zainab/portraits/zainab_editorial_wide_01.webp`,

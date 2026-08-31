@@ -4,8 +4,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useZaiStore, type ZaiView } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
-import { useIsMobile } from '@/hooks/use-mobile';
 import { ArrowRight } from 'lucide-react';
+import LuxuryPortraitVideo from './LuxuryPortraitVideo';
 
 // ── Curated Look Items Data ─────────────────────────────────
 
@@ -65,7 +65,6 @@ export const lookProducts: LookProductItem[] = [
 ];
 
 export default function ShopTheLook() {
-  const isMobile = useIsMobile();
   const setView = useZaiStore((s) => s.setView);
 
   return (
@@ -96,18 +95,14 @@ export default function ShopTheLook() {
         </motion.h2>
       </div>
 
-      {/* ── Clean Media Container (100% unobstructed, zero overlay markers) ── */}
-      <div className="relative w-full max-w-5xl mx-auto px-4 md:px-8">
-        <div className="relative w-full aspect-[3/4] md:aspect-[4/5] overflow-hidden rounded-sm border border-zai-gold/15 shadow-2xl bg-black">
-          <video
+      {/* ── Media Stage (Two-layer uncropped portrait video with blurred ambient background) ── */}
+      <div className="relative w-full max-w-[1200px] mx-auto px-4 md:px-8">
+        <div className="relative w-full h-[65vh] sm:h-[75vh] md:h-[82vh] overflow-hidden rounded-sm border border-zai-gold/15 shadow-2xl bg-[#050505]">
+          <LuxuryPortraitVideo
             src={zaiAssets.zainab.shopTheLookVideo01}
-            poster={isMobile ? zaiAssets.zainab.shopTheLookMobile01 : zaiAssets.zainab.shopTheLook01}
-            autoPlay
-            muted
-            loop
-            playsInline
+            posterDesktop={zaiAssets.zainab.shopTheLook01}
+            posterMobile={zaiAssets.zainab.shopTheLookMobile01}
             preload="metadata"
-            className="w-full h-full object-cover object-top select-none pointer-events-none"
           />
         </div>
 
