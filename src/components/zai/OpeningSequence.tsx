@@ -57,7 +57,7 @@ export default function OpeningSequence() {
 
       // Respect prefers-reduced-motion
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        complete();
+        setTimeout(complete, 0);
         return;
       }
     }
