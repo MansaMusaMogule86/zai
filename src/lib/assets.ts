@@ -9,12 +9,14 @@ export const BASE = "/assets/zai";
 export const zaiAssets = {
   // ── ZAINAB ──────────────────────────────────────────────
   zainab: {
-    heroDesktop: `${BASE}/01_zainab/hero/zainab_hero_dark_desktop_01.webp`,
-    heroMobile: `${BASE}/01_zainab/hero/zainab_hero_mobile_01.webp`,
+    heroDesktop: `/images/zai/hero/ZAINAB_HERO_DARK_DESKTOP_01.webp`,
+    heroMobile: `/images/zai/hero/ZAINAB_HERO_DARK_MOBILE_01.webp`,
+    heroVideo: `/images/zai/hero/ZAINAB_HERO_VIDEO_01.mp4`,
     beautyCloseup01: `${BASE}/01_zainab/beauty/zainab_beauty_closeup_01.webp`,
     beautyCloseup02: `${BASE}/01_zainab/beauty/zainab_beauty_closeup_02.webp`,
-    shopTheLook01: `${BASE}/01_zainab/shop_the_look/zainab_shop_the_look_01.webp`,
-    shopTheLookMobile01: `${BASE}/01_zainab/shop_the_look/zainab_shop_the_look_mobile_01.webp`,
+    shopTheLook01: `/images/zai/shop-the-look/ZAINAB_SHOP_THE_LOOK_DESKTOP_01.webp`,
+    shopTheLookMobile01: `/images/zai/shop-the-look/ZAINAB_SHOP_THE_LOOK_MOBILE_01.webp`,
+    shopTheLookVideo01: `/images/zai/shop-the-look/ZAINAB_SHOP_THE_LOOK_01.mp4`,
     fashionFullbody01: `${BASE}/01_zainab/fashion/zainab_fashion_fullbody_01.webp`,
     fashionWide01: `${BASE}/01_zainab/fashion/zainab_fashion_wide_01.webp`,
     founderPortrait01: `${BASE}/01_zainab/founder/zainab_founder_portrait_01.webp`,
