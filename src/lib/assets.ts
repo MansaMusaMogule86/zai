@@ -104,6 +104,8 @@ export const zaiAssets = {
     logoPrimary: `${BASE}/04_house_of_zai/logos/house_of_zai_logo_primary.webp`,
     // ── HOUSE SALON COMPOSITE — beauty services editorial image
     ritual01: `/images/zai/house/HOUSE_OF_ZAI_RITUAL_01.webp`,
+    // ── HOUSE PORTAL CARD — World page "HOUSE" card image
+    portalCard01: `/images/zai/house-of-zai/HOUSE_OF_ZAI_BEAUTY_01.webp`,
     // ── LOCKED HOUSE HERO — approved Zainab beauty closeup ──
     heroDesktop: `/images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
     heroMobile: `/images/zai/beaute/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
@@ -111,10 +113,10 @@ export const zaiAssets = {
     brows01: `/images/zai/house/HOUSE_OF_ZAI_BROWS_01.webp`,
     lips01: `/images/zai/house/HOUSE_OF_ZAI_LIPS_01.webp`,
     lashes01: `/images/zai/house/HOUSE_OF_ZAI_LASHES_01.webp`,
+    lashes02: `/images/zai/house/HOUSE_OF_ZAI_LASH_LIFT_01.webp`,
     nails01: `/images/zai/house/HOUSE_OF_ZAI_NAILS_01.webp`,
     interior01: `${BASE}/04_house_of_zai/interior/house_of_zai_interior_01.webp`,
     interior02: `${BASE}/04_house_of_zai/interior/house_of_zai_interior_02.webp`,
-    lashes02: `${BASE}/04_house_of_zai/lashes/house_of_zai_lashes_02.webp`,
     nails02: `${BASE}/04_house_of_zai/nails/house_of_zai_nails_02.webp`,
     treatment01: `${BASE}/04_house_of_zai/treatments/house_of_zai_treatment_01.webp`,
     treatment02: `${BASE}/04_house_of_zai/treatments/house_of_zai_treatment_02.webp`,

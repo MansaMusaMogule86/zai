@@ -41,7 +41,7 @@ const portals: PortalDef[] = [
   },
   {
     id: 'house',
-    image: "/images/zai/house/HOUSE_OF_ZAI_NAILS_01.webp",
+    image: zaiAssets.house.portalCard01,
     brand: 'house',
     label: 'HOUSE',
     tagline: 'Ritual becomes experience.',

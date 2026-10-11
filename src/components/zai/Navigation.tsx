@@ -63,11 +63,10 @@ export default function Navigation() {
       role="banner"
       className="fixed inset-x-0 top-0 z-[1000] transition-[background,_backdrop-filter] duration-250 ease-[cubic-bezier(0.4,0,0.2,1)]"
       style={{
-        backgroundColor: scrolled ? 'rgba(5,5,5,0.92)' : 'rgba(5,5,5,0.55)',
-        backdropFilter: scrolled
-          ? 'blur(20px) saturate(120%)'
-          : 'blur(16px) saturate(120%)',
-        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        backgroundColor: 'rgba(10,10,10,0.72)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
         height: '80px',
       }}
     >
@@ -104,36 +103,32 @@ export default function Navigation() {
                 {navItems.map((item) => {
                   const isActive = view === item.view;
                   return (
-                    <motion.li
-                      key={item.view}
-                      initial={{ opacity: 0.68 }}
-                      animate={isActive ? { opacity: 1 } : { opacity: 0.68 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.2 }}
-                    >
+                    <li key={item.view}>
                       <button
                         onClick={() => setView(item.view)}
-                        className="flex flex-col items-center gap-2"
+                        aria-current={isActive ? 'page' : undefined}
+                        className="group relative flex flex-col items-center bg-transparent p-0 outline-none"
                       >
                         <span
-                          className={`font-body text-xs tracking-[0.17em] uppercase ${
-                            isActive ? 'text-white' : 'text-[rgba(255,255,255,0.68)]'
-                          } hover:text-[rgba(255,255,255,1)]`}
+                          className={`font-body text-xs tracking-[0.17em] uppercase transition-colors duration-200 ease-in-out ${
+                            isActive
+                              ? 'text-white'
+                              : 'text-[rgba(255,255,255,0.58)] group-hover:text-[rgba(255,255,255,0.95)]'
+                          }`}
                         >
                           {item.label}
                         </span>
                         {isActive && (
                           <motion.span
-                            className="w-[20px] h-[1px] bg-[rgba(232,213,184,0.8)] self-center"
+                            className="mt-2 h-[1px] w-[22px] bg-[#b89a62] self-center"
                             initial={{ width: 0 }}
-                            animate={isActive ? { width: 20 } : { width: 0 }}
-                            whileHover={{ width: 24 }}
+                            animate={{ width: 22 }}
                             transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                             aria-hidden="true"
                           />
                         )}
                       </button>
-                    </motion.li>
+                    </li>
                   );
                 })}
               </motion.ul>

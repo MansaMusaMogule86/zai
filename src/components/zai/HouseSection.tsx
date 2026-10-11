@@ -213,6 +213,22 @@ export default function HouseSection() {
               </div>
             </motion.div>
           ))}
+
+          {/* Editorial tile filling the last grid slot (5 services leave one gap at 2 and 3 columns) */}
+          <motion.div
+            custom={houseServices.length}
+            variants={fadeUp}
+            className="relative hidden md:block min-h-[320px] bg-zai-charcoal/50 border border-zai-ivory/5 hover:border-house-champagne/30 transition-all duration-500 group overflow-hidden"
+            aria-hidden="true"
+          >
+            <ZaiImage
+              src={zaiAssets.house.lashes02}
+              alt=""
+              brand="house"
+              fill
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </motion.div>
         </motion.div>
 
         {/* ── 3. BOOKING FLOW ──────────────────────────── */}
