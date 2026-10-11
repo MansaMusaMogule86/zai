@@ -76,7 +76,7 @@ export default function Navigation() {
         aria-label="Main navigation"
       >
         {/* Minimal ZAI Wordmark */}
-        <div className="flex-shrink-0 pl-6 lg:pl-10">
+        <div className="flex-shrink-0 lg:pl-10">
           <button
             onClick={() => setView('home')}
             className="flex items-center"
@@ -191,7 +191,7 @@ export default function Navigation() {
         {/* Mobile hamburger (always visible) */}
         <button
           onClick={() => setMobileNavOpen(true)}
-          className="lg:hidden text-[rgba(255,255,255,0.68)] hover:text-[rgba(255,255,255,1)] transition-colors duration-200 cursor-pointer"
+          className="lg:hidden -mr-2 p-2 text-[rgba(255,255,255,0.68)] hover:text-[rgba(255,255,255,1)] transition-colors duration-200 cursor-pointer"
           aria-label="Open navigation menu"
         >
           <svg

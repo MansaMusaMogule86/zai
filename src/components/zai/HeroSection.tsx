@@ -117,19 +117,20 @@ export default function HeroSection() {
 
       {/* Mobile: stacked layout ──────────────────────────── */}
       <div className="flex flex-col md:hidden">
-        {/* Mobile beach video — top ~65vh container with two-layer contain */}
-        <div className="relative h-[65vh] overflow-hidden bg-[#050505]">
+        {/* Mobile beach video — ~65vh container with two-layer contain, starting below the 80px navbar */}
+        <div className="relative h-[65vh] mt-20 overflow-hidden bg-[#050505]">
           <LuxuryPortraitVideo
             src={zaiAssets.zainab.heroVideo}
             posterDesktop={zaiAssets.zainab.heroDesktop}
             posterMobile={zaiAssets.zainab.heroMobile}
             preload="auto"
           />
-
-          <span className="absolute bottom-4 left-4 z-10 text-[10px] tracking-editorial text-zai-ivory/20 font-body select-none pointer-events-none">
-            PRIVATE DIGITAL CONCEPT
-          </span>
         </div>
+
+        {/* Private digital concept label — below the video so it never sits over the image */}
+        <span className="px-6 pt-4 text-[10px] tracking-editorial text-zai-ivory/25 font-body select-none pointer-events-none">
+          PRIVATE DIGITAL CONCEPT
+        </span>
 
         {/* Typography below image */}
         <div className="flex-1 flex items-center px-6 py-12 bg-zai-black">
