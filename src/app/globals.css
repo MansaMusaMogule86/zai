@@ -354,3 +354,5 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Focus visible */\n:focus-visible { @apply ring-2 ring-zai-gold ring-offset-2; }

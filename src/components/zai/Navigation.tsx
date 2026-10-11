@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -60,85 +60,89 @@ export default function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
-        scrolled
-          ? 'bg-zai-black/80 backdrop-blur-md border-b border-zai-gold/20'
-          : 'bg-transparent'
-      }`}
       role="banner"
+      className="fixed inset-x-0 top-0 z-[1000] transition-[background,_backdrop-filter] duration-250 ease-[cubic-bezier(0.4,0,0.2,1)]"
+      style={{
+        backgroundColor: scrolled ? 'rgba(5,5,5,0.92)' : 'rgba(5,5,5,0.55)',
+        backdropFilter: scrolled
+          ? 'blur(20px) saturate(120%)'
+          : 'blur(16px) saturate(120%)',
+        borderBottom: '1px solid rgba(255,255,255,0.08)',
+        height: '80px',
+      }}
     >
       <nav
-        className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6 lg:px-10"
+        className="flex h-full items-center justify-between px-6 lg:px-10 max-w-[1400px] mx-auto"
         role="navigation"
         aria-label="Main navigation"
       >
         {/* Minimal ZAI Wordmark */}
-        <button
-          onClick={() => setView('home')}
-          className={`font-display text-2xl tracking-luxe transition-colors duration-500 ${
-            showFullNav
-              ? 'text-zai-ivory hover:text-zai-gold'
-              : 'text-zai-ivory/80 hover:text-zai-ivory'
-          }`}
-          aria-label="Return to World"
-        >
-          ZAI
-        </button>
+        <div className="flex-shrink-0 pl-6 lg:pl-10">
+          <button
+            onClick={() => setView('home')}
+            className="flex items-center"
+            aria-label="Return to World"
+          >
+            <span className="font-display text-2xl lg:text-3xl tracking-[0.05em] font-normal text-zai-ivory">
+              ZAI
+            </span>
+          </button>
+        </div>
 
         {/* Center nav items - revealed only after entering world or on internal routes */}
-        <AnimatePresence>
-          {showFullNav && (
-            <motion.ul
-              key="center-nav"
-              initial={{ opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="hidden lg:flex items-center gap-8"
-            >
-              {navItems.map((item) => {
-                const isActive = view === item.view;
-                return (
-                  <li key={item.view}>
-                    <button
-                      onClick={() => setView(item.view)}
-                      className={`relative font-body text-xs tracking-editorial uppercase transition-colors duration-300 ${
-                        isActive
-                          ? 'text-zai-ivory'
-                          : 'text-zai-ivory/70 hover:text-zai-ivory'
-                      }`}
-                      aria-current={isActive ? 'page' : undefined}
+        <div className="flex-1 flex justify-center">
+          <AnimatePresence>
+            {showFullNav && (
+              <motion.ul
+                key="center-nav"
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+                className="hidden lg:flex items-center gap-[40px]"
+              >
+                {navItems.map((item) => {
+                  const isActive = view === item.view;
+                  return (
+                    <motion.li
+                      key={item.view}
+                      initial={{ opacity: 0.68 }}
+                      animate={isActive ? { opacity: 1 } : { opacity: 0.68 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.2 }}
                     >
-                      {item.label}
-                      {/* Gold underline */}
-                      <motion.span
-                        className="absolute -bottom-1 left-1/2 h-px bg-zai-gold -translate-x-1/2"
-                        initial={false}
-                        animate={{
-                          width: isActive ? '100%' : '0%',
-                          opacity: isActive ? 1 : 0,
-                        }}
-                        transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                        aria-hidden="true"
-                      />
-                      {/* Hover underline */}
-                      <motion.span
-                        className="absolute -bottom-1 left-1/2 h-px bg-zai-gold/50 -translate-x-1/2"
-                        initial={{ width: '0%', opacity: 0 }}
-                        whileHover={{ width: '100%', opacity: 1 }}
-                        transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
-                        aria-hidden="true"
-                      />
-                    </button>
-                  </li>
-                );
-              })}
-            </motion.ul>
-          )}
-        </AnimatePresence>
+                      <button
+                        onClick={() => setView(item.view)}
+                        className="flex flex-col items-center gap-2"
+                      >
+                        <span
+                          className={`font-body text-xs tracking-[0.17em] uppercase ${
+                            isActive ? 'text-white' : 'text-[rgba(255,255,255,0.68)]'
+                          } hover:text-[rgba(255,255,255,1)]`}
+                        >
+                          {item.label}
+                        </span>
+                        {isActive && (
+                          <motion.span
+                            className="w-[20px] h-[1px] bg-[rgba(232,213,184,0.8)] self-center"
+                            initial={{ width: 0 }}
+                            animate={isActive ? { width: 20 } : { width: 0 }}
+                            whileHover={{ width: 24 }}
+                            transition={{ duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+                            aria-hidden="true"
+                          />
+                        )}
+                      </button>
+                    </motion.li>
+                  );
+                })}
+              </motion.ul>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Right side controls - revealed only after entering world or on internal routes */}
-        <div className="flex items-center gap-5 min-w-[32px] justify-end">
+        <div className="flex items-center gap-4 hidden sm:flex">
           <AnimatePresence>
             {showFullNav && (
               <motion.div
@@ -147,66 +151,68 @@ export default function Navigation() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="flex items-center gap-5"
+                className="flex items-center gap-4"
               >
                 {/* Search */}
                 <button
                   onClick={() => setSearchOpen(true)}
-                  className="text-zai-ivory/70 hover:text-zai-ivory transition-colors duration-300 cursor-pointer"
+                  className="text-[rgba(255,255,255,0.68)] hover:text-[rgba(255,255,255,1)] transition-colors duration-200 cursor-pointer"
                   aria-label="Open search"
                 >
-                  <Search className="h-4 w-4" strokeWidth={1.5} />
+                  <Search className="h-5 w-5" strokeWidth={1.5} />
                 </button>
 
                 {/* Language toggle */}
-                <div className="hidden sm:flex items-center gap-1 font-body text-[10px] tracking-editorial uppercase">
+                <div className="flex items-center gap-2 text-xs tracking-[0.17em] uppercase">
                   <button
                     onClick={toggleLang}
-                    className={`transition-colors duration-300 cursor-pointer ${
-                      lang === 'EN' ? 'text-zai-ivory' : 'text-zai-ivory/40 hover:text-zai-ivory/60'
-                    }`}
+                    className={`
+                      transition-colors duration-200
+                      ${lang === 'EN' ? 'text-white' : 'text-[rgba(255,255,255,0.42)]'}
+                    `}
                     aria-label="Switch to English"
                   >
                     EN
                   </button>
-                  <span className="text-zai-ivory/20" aria-hidden="true">
+                  <span className="text-[rgba(255,255,255,0.30)]">
                     /
                   </span>
                   <button
                     onClick={toggleLang}
-                    className={`transition-colors duration-300 cursor-pointer ${
-                      lang === 'AR' ? 'text-zai-ivory' : 'text-zai-ivory/40 hover:text-zai-ivory/60'
-                    }`}
+                    className={`
+                      transition-colors duration-200
+                      ${lang === 'AR' ? 'text-white' : 'text-[rgba(255,255,255,0.42)]'}
+                    `}
                     aria-label="Switch to Arabic"
                   >
                     AR
                   </button>
                 </div>
-
-                {/* Mobile hamburger */}
-                <button
-                  onClick={() => setMobileNavOpen(true)}
-                  className="lg:hidden text-zai-ivory/70 hover:text-zai-ivory transition-colors duration-300 cursor-pointer"
-                  aria-label="Open navigation menu"
-                >
-                  <svg
-                    className="h-5 w-5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={1.5}
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <line x1="4" y1="7" x2="20" y2="7" />
-                    <line x1="4" y1="12" x2="20" y2="12" />
-                    <line x1="4" y1="17" x2="20" y2="17" />
-                  </svg>
-                </button>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
+
+        {/* Mobile hamburger (always visible) */}
+        <button
+          onClick={() => setMobileNavOpen(true)}
+          className="lg:hidden text-[rgba(255,255,255,0.68)] hover:text-[rgba(255,255,255,1)] transition-colors duration-200 cursor-pointer"
+          aria-label="Open navigation menu"
+        >
+          <svg
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={1.5}
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
+            <line x1="4" y1="7" x2="20" y2="7" />
+            <line x1="4" y1="12" x2="20" y2="12" />
+            <line x1="4" y1="17" x2="20" y2="17" />
+          </svg>
+        </button>
       </nav>
     </header>
   );
