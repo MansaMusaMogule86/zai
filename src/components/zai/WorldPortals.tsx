@@ -41,7 +41,7 @@ const portals: PortalDef[] = [
   },
   {
     id: 'house',
-    image: "/images/zai/house/house_of_zai_beauty_services_hero_desktop.png",
+    image: "/images/zai/house/HOUSE_OF_ZAI_NAILS_01.webp",
     brand: 'house',
     label: 'HOUSE',
     tagline: 'Ritual becomes experience.',
