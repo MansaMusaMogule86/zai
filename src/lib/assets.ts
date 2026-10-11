@@ -33,7 +33,7 @@ export const zaiAssets = {
     shopTheLookVideo01: `/images/zai/shop-the-look/ZAINAB_SHOP_THE_LOOK_01.mp4`,
     fashionFullbody01: `/images/zai/maison/ZAINAB_FASHION_FULLBODY_01.webp`,
     fashionWide01: `${BASE}/01_zainab/fashion/zainab_fashion_wide_01.webp`,
-    founderPortrait01: `${BASE}/01_zainab/founder/zainab_founder_portrait_01.webp`,
+    founderPortrait01: `/images/zai/founder/ZAINAB_AL_ALWAN_FOUNDER_01.webp`,
     founderWide01: `/images/zai/founder/ZAINAB_FOUNDER_WIDE_01.webp`,
     editorialPortrait01: `${BASE}/01_zainab/portraits/zainab_editorial_portrait_01.webp`,
     editorialPortrait02: `${BASE}/01_zainab/portraits/zainab_editorial_portrait_02.webp`,
