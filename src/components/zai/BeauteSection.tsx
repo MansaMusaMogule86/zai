@@ -24,15 +24,16 @@ function getProductImage(assetKey: string): string {
 
 // ── Category filters ─────────────────────────────────────────
 
-type FilterKey = 'ALL' | 'FACE' | 'LIPS' | 'EYES';
+type FilterKey = 'ALL' | 'FACE' | 'LIPS' | 'EYES' | 'BODY';
 
-const filters: FilterKey[] = ['ALL', 'FACE', 'LIPS', 'EYES'];
+const filters: FilterKey[] = ['ALL', 'FACE', 'LIPS', 'EYES', 'BODY'];
 
 const categoryMap: Record<string, Product['category'][]> = {
   ALL: [],
-  FACE: ['foundation', 'highlighter', 'tint'],
-  LIPS: ['lipstick', 'lip-pencil', 'tint'],
-  EYES: ['mascara', 'brow', 'eyeliner'],
+  FACE: ['foundation', 'highlighter', 'blush', 'sun-mist'],
+  LIPS: ['lipstick', 'lip-oil'],
+  EYES: ['mascara', 'eyeliner'],
+  BODY: ['body-oil'],
 };
 
 function filterProducts(key: FilterKey): Product[] {
@@ -123,7 +124,7 @@ export default function BeauteSection() {
             <img
               src={zaiAssets.beaute.heroDesktop}
               alt="ZAI Beauté — Your skin. Your shade. Your Zai."
-              className="block w-full h-auto md:h-full object-cover md:object-[center_18%]"
+              className="block w-full h-auto md:h-full object-cover object-[center_20%] md:object-[center_18%]"
               fetchPriority="high"
             />
           </picture>
