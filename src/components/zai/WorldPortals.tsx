@@ -127,38 +127,42 @@ export default function WorldPortals() {
           </motion.h2>
         </motion.div>
 
-        {/* ── Portals — Desktop (3 cols) ──────────────────── */}
-        <motion.div
-          ref={gridRef}
-          variants={portalContainer}
-          initial="hidden"
-          animate={gridInView ? 'visible' : 'hidden'}
-          className="hidden md:grid md:grid-cols-3 gap-6"
-        >
-          {portals.map((portal) => (
-            <PortalDoor key={portal.id} portal={portal} onEnter={() => setView(portal.id)} />
-          ))}
-        </motion.div>
-
-        {/* ── Portals — Mobile (horizontal scroll snap) ──── */}
-        <div className="md:hidden -mx-6">
+        {/* Shared observation target: must stay rendered at every breakpoint,
+            otherwise the mobile row never becomes "visible" (a display:none
+            element is never reported as in view by IntersectionObserver). */}
+        <div ref={gridRef}>
+          {/* ── Portals — Desktop (3 cols) ──────────────────── */}
           <motion.div
             variants={portalContainer}
             initial="hidden"
             animate={gridInView ? 'visible' : 'hidden'}
-            className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 pb-4"
-            style={{
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              WebkitOverflowScrolling: 'touch',
-            }}
+            className="hidden md:grid md:grid-cols-3 gap-6"
           >
             {portals.map((portal) => (
-              <div key={portal.id} className="snap-start shrink-0 w-[84vw]">
-                <PortalDoor portal={portal} onEnter={() => setView(portal.id)} />
-              </div>
+              <PortalDoor key={portal.id} portal={portal} onEnter={() => setView(portal.id)} />
             ))}
           </motion.div>
+
+          {/* ── Portals — Mobile (horizontal scroll snap) ──── */}
+          <div className="md:hidden -mx-6">
+            <motion.div
+              variants={portalContainer}
+              initial="hidden"
+              animate={gridInView ? 'visible' : 'hidden'}
+              className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-6 pb-4"
+              style={{
+                scrollbarWidth: 'none',
+                msOverflowStyle: 'none',
+                WebkitOverflowScrolling: 'touch',
+              }}
+            >
+              {portals.map((portal) => (
+                <div key={portal.id} className="snap-start shrink-0 w-[84vw]">
+                  <PortalDoor portal={portal} onEnter={() => setView(portal.id)} />
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
