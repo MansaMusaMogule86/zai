@@ -17,8 +17,8 @@ interface ZaiImageProps extends Omit<ImageProps, 'onError'> {
 
 /**
  * Extracts the filename portion from a path string.
- * e.g. "/assets/zai/01_zainab/hero/zainab_hero_dark_desktop_01.webp"
- *  → "zainab_hero_dark_desktop_01.webp"
+ * e.g. "/images/zai/hero/desktop/ZAINAB_HERO_DARK_DESKTOP_01.webp"
+ *  → "ZAINAB_HERO_DARK_DESKTOP_01.webp"
  */
 export function extractFilename(src: string): string {
   const parts = src.split('/');
