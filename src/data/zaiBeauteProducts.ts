@@ -27,7 +27,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//S/C/SC-00015619-R-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-multifunctional-sun-mist-setting-spray-sc-00015619-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'you-make-me-blush-blush-bronzer-duo-palette-n-01-sunset',
@@ -42,7 +42,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "2 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//m/u/MU-00028012-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-you-make-me-blush-blush-bronzer-duo-palette-01-sunset-mu-00028012-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'you-make-me-blush-blush-bronzer-duo-palette-n-02-sunrise',
@@ -57,7 +57,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "2 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//m/u/MU-00028013-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-you-make-me-blush-blush-bronzer-duo-palette-02-sunrise-mu-00028013-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'bronze-body-oil-50ml',
@@ -72,7 +72,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//S/C/SC-00014206-R-1-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-bronze-body-oil-50-ml-169-floz-sc-00014206-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'brows-styler-set-2-pcs',
@@ -87,7 +87,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//b/d/BDL-034682-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/brows-styler-set-2-pcs-bdl-034682/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'bold-eyes-trio-3-pcs',
@@ -102,7 +102,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//b/d/BDL-034683-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/bold-eyes-trio-3-pcs-bdl-034683/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'velvet-matt-lipstick-macaroon',
@@ -117,7 +117,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015572-R3-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-macaroon-n-04-35-g-012-net-wt-oz-mu-00015572-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-matt-lipstick-runway-nude',
@@ -132,7 +132,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015574-R4-1_1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-runway-nude-n-05-35-g-012-net-wt-oz-mu-00015574-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-matt-lipstick-orchid',
@@ -147,7 +147,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015575-R3-1_1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-orchid-n-06-35-g-012-net-wt-oz-mu-00015575-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-matt-lipstick-blushy',
@@ -162,7 +162,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015569-R4-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-blushy-n-07-35-g-012-net-wt-oz-mu-00015569-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-matt-lipstick-paris',
@@ -177,7 +177,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015573-R4-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-paris-n-08-35-g-012-net-wt-oz-mu-00015573-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'beauty-booster-foundation-n-03-honey-dew',
@@ -192,7 +192,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "7 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015418-R6-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-beauty-booster-foundation-honey-dew-n-03-30-ml-101-floz-mu-00015418-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'beauty-booster-foundation-n-04-desert-sand',
@@ -207,7 +207,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "7 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015414-R7-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-beauty-booster-foundation-desert-sand-n-04-30-ml-101-floz-mu-00015414-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'beauty-booster-foundation-n-05-butterscotch',
@@ -222,7 +222,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "7 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015413-R6-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-beauty-booster-foundation-butterscotch-n-05-30-ml-101-floz-mu-00015413-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'beauty-booster-foundation-n-06-umber-girl',
@@ -237,7 +237,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "7 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015417-R6-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-beauty-booster-foundation-umber-girl-n-06-30-ml-101-floz-mu-00015417-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-classic-lip-pencil-n-01-fawn',
@@ -252,7 +252,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "6 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015945-R5-1_1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-classic-lip-pencil-fawn-n-01-04-g-0014-net-wt-oz-mu-00015945-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-classic-lip-pencil-n-02-caramel',
@@ -267,7 +267,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "6 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015946-R5-1_1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-classic-lip-pencil-caramel-n-02-04-g-0014-net-wt-oz-mu-00015946-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-classic-lip-pencil-n-03-gingerbread',
@@ -282,7 +282,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "6 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015947-R5-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-classic-lip-pencil-gingerbread-n-03-04-g-0014-net-wt-oz-mu-00015947-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-classic-lip-pencil-n-04-truffle',
@@ -297,7 +297,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "6 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015948-R6-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-classic-lip-pencil-truffle-n-04-04-g-0014-net-wt-oz-mu-00015948-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-classic-lip-pencil-n-05-cinnamon',
@@ -312,7 +312,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "6 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015949-R6-2.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-classic-lip-pencil-cinnamon-n-05-04-g-0014-net-wt-oz-mu-00015949-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-classic-lip-pencil-n-06-cherry-red',
@@ -327,7 +327,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "6 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015950-1_1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-classic-lip-pencil-cherry-red-n-06-04-g-0014-net-wt-oz-mu-00015950-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-matt-lipstick-mocha',
@@ -342,7 +342,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015576-R9-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-zai-n-02-35-g-012-net-wt-oz-mu-00015576-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'velvet-matt-lipstick-deeper-than-you',
@@ -357,7 +357,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015570-R9-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-deeper-than-you-n-03-35-g-012-net-wt-oz-mu-00015570-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'fastline-liquid-eyeliner-n-01-black',
@@ -372,7 +372,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00017028-9.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-fastline-liquid-eyeliner-brush-pen-black-n-01-06-ml-002-floz-mu-00017028-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'color-bloom-ph-reactor-lip-oil',
@@ -387,7 +387,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00025328-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-ph-reactor-lip-oil-mu-00025328-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'lash-booster-mascara-n-01-black',
@@ -402,7 +402,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00020198-R-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-lash-booster-mascara-black-n-01-10-ml-034-floz-mu-00020198-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'eyelash-curler',
@@ -417,7 +417,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00025327-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-eyelash-curler-mu-00025327-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'gloz-highlighter-15ml',
@@ -432,7 +432,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00019692-R-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-gloze-highlighter-15-ml-051-floz-mu-00019692-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'velvet-matt-lipstick-latte',
@@ -447,7 +447,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "8 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015571-R-1_2.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-matt-lipstick-latte-n-01-35-g-012-net-wt-oz-mu-00015571-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: '3-in-1-the-blenders-pro-set',
@@ -462,7 +462,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00021673-r-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-the-blenders-pro-mu-00021673-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'beauty-booster-foundation-n-00-cotton-blossom',
@@ -477,7 +477,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "7 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00019694-R-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-beauty-booster-foundation-cotton-blossom-n-00-30-ml-101-floz-mu-00019694-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'archchic-3-in-1-brows-styler-n-02-medium-brown',
@@ -492,7 +492,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "2 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00019723-R-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-archchic-3-in-1-brows-styler-medium-brown-n-02-mu-00019723-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'archchic-3-in-1-brows-styler-n-03-deep-brown',
@@ -507,7 +507,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "2 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00019724-R-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-archchic-3-in-1-brows-styler-deep-brown-n-03-mu-00019724-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'velvet-veil-lip-cheek-tint-n-01-red-crush',
@@ -522,7 +522,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "2 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00019506-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-veil-lip-cheek-red-crush-n-01-6-ml-02-floz-mu-00019506-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'velvet-veil-lip-cheek-tint-n-02-sakura',
@@ -537,7 +537,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "2 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00019507-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-velvet-veil-lip-cheek-sakura-n-02-6-ml-02-floz-mu-00019507-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'pro-brush-n-z01',
@@ -552,7 +552,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: null,
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00019565-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-pro-brush-z01-mu-00019565-1/p//',
-      isExclusive: False
+      isExclusive: false
     },
     {
       id: 'beauty-booster-foundation-n-01-radiant-pearl',
@@ -567,7 +567,7 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "7 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015412-R6-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-beauty-booster-foundation-radiant-pearl-n-01-30-ml-101-floz-mu-00015412-1/p//',
-      isExclusive: True
+      isExclusive: true
     },
     {
       id: 'beauty-booster-foundation-n-02-iconic-beige',
@@ -582,5 +582,5 @@ export const zaiBeauteProducts: ZaiBeauteProduct[] = [    {
       colorsAvailable: "7 colors",
       image: 'https://v2cdn.boutiqaat.com/cdn-cgi/image/width=400,height=400,quality=80/media/catalog/product//M/U/MU-00015415-R7-1.jpg',
       boutiqaatUrl: 'https://www.boutiqaat.com/en-ae/women/zai-beaute-beauty-booster-foundation-iconic-beige-n-02-30-ml-101-floz-mu-00015415-1/p//',
-      isExclusive: True
+      isExclusive: true
     }];
