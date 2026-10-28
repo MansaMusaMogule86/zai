@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 
-const LOGO_SRC = '/images/zai/beaute/ZAI_BEAUTE_LOGO_3D_TRANSPARENT_01.png';
+const LOGO_SRC = '/images/zai/beaute/logos/ZAI_BEAUTE_LOGO_3D_TRANSPARENT_01.png';
 const INTRO_DURATION = 2200; // ms
 
 export default function BeauteIntro() {

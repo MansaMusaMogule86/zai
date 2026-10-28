@@ -114,20 +114,30 @@ export default function MaisonSection() {
       />
 
       {/* ── 1. Hero ────────────────────────────────────────── */}
-      <div className="relative min-h-[60vh] md:min-h-[80vh] w-full overflow-hidden bg-black">
-        <img
-          src={zaiAssets.maison.heroDesktop}
-          alt="ZAI Maison — Silhouette & Fashion"
-          className="w-full h-full object-cover object-top"
-          fetchPriority="high"
-        />
+      <div className="relative min-h-[80vh] md:min-h-[85vh] w-full overflow-hidden bg-black">
+        <picture className="absolute inset-0 w-full h-full">
+          <source
+            media="(max-width: 767px)"
+            srcSet={zaiAssets.maison.heroMobile}
+          />
+          <source
+            media="(min-width: 768px)"
+            srcSet={zaiAssets.maison.heroDesktop}
+          />
+          <img
+            src={zaiAssets.maison.heroDesktop}
+            alt="ZAI Maison — Silhouette & Fashion"
+            className="w-full h-full object-cover object-[center_15%] md:object-top"
+            fetchPriority="high"
+          />
+        </picture>
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           onClick={() => setView('home')}
-          className="absolute top-6 left-6 md:top-10 md:left-10 text-xs tracking-editorial text-zai-ivory/60 hover:text-zai-ivory transition-colors duration-300 z-10"
+          className="absolute top-24 left-6 md:top-28 md:left-10 z-10 text-xs tracking-editorial text-zai-ivory/80 hover:text-zai-ivory transition-colors duration-300 flex items-center gap-2 cursor-pointer bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10"
         >
           ← WORLD
         </motion.button>

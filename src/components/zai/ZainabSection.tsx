@@ -44,13 +44,13 @@ export default function ZainabSection() {
   return (
     <div className="min-h-screen bg-zai-black">
       {/* ── 1. Hero ──────────────────────────────── */}
-      <section className="relative w-full min-h-[70vh] md:min-h-[85vh] overflow-hidden">
+      <section className="relative w-full min-h-[80vh] md:min-h-[90vh] overflow-hidden">
         {/* Large Founder Image Filling Hero Area */}
-        <div className="relative w-full h-[70vh] md:h-[85vh] overflow-hidden bg-black">
+        <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
           <img
             src={zaiAssets.zainab.founderWide01}
             alt="Zainab Al Alwan — Founder"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-[center_20%] md:object-center"
             fetchPriority="high"
           />
         </div>

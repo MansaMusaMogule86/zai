@@ -109,12 +109,23 @@ export default function HouseSection() {
       />
 
       {/* ── 1. HOUSE HERO ──────────────────────────────── */}
-      <div className="relative w-full overflow-hidden bg-black h-[520px] max-h-[58svh] min-h-[440px] md:h-[560px] md:max-h-[65vh] lg:h-[620px] lg:max-h-[68vh] lg:min-h-[520px]">
-        <img
-          src={zaiAssets.house.heroDesktop}
-          alt="House of ZAI — Ritual & Beauty Services"
-          className="w-full h-full object-cover object-[52%_35%] lg:object-[center_38%]"
-        />
+      <div className="relative w-full overflow-hidden bg-black min-h-[75vh] md:min-h-[80vh]">
+        <picture className="absolute inset-0 w-full h-full">
+          <source
+            media="(max-width: 767px)"
+            srcSet={zaiAssets.house.heroMobile}
+          />
+          <source
+            media="(min-width: 768px)"
+            srcSet={zaiAssets.house.heroDesktop}
+          />
+          <img
+            src={zaiAssets.house.heroDesktop}
+            alt="House of ZAI — Ritual & Beauty Services"
+            className="w-full h-full object-cover object-[center_25%] md:object-[center_35%]"
+            fetchPriority="high"
+          />
+        </picture>
 
         {/* Warm dark gradient from bottom */}
         <div
@@ -128,7 +139,7 @@ export default function HouseSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5, duration: 0.6 }}
           onClick={() => setView('home')}
-          className="absolute top-6 left-6 md:top-10 md:left-10 text-xs tracking-editorial text-zai-ivory/60 hover:text-zai-ivory transition-colors duration-300 z-10"
+          className="absolute top-24 left-6 md:top-28 md:left-10 z-10 text-xs tracking-editorial text-zai-ivory/80 hover:text-zai-ivory transition-colors duration-300 flex items-center gap-2 cursor-pointer bg-black/40 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10"
         >
           ← WORLD
         </motion.button>
