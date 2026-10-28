@@ -7,11 +7,7 @@
 // its hero assets EXCLUSIVELY. Assignments are deterministic —
 // never derived from a shared array, index, or fallback.
 //
-// HOUSE hero = /images/zai/beaute/products/ZAINAB_BEAUTY_CLOSEUP_01.webp
-//   ↑ This is the APPROVED canonical House page hero.
-//   ↑ Do NOT change this assignment without explicit instruction.
-//   ↑ The Beauté product migration MUST NOT affect this path.
-//   ↑ Do NOT inherit from World, Maison, or Founder assets.
+// HOUSE hero = /images/zai/house/treatments/HOUSE_OF_ZAI_RITUAL_01.webp
 //
 // BEAUTÉ hero = /images/zai/beaute/hero/ZAI_BEAUTE_HERO_CAMPAIGN_DESKTOP_01.webp
 // MAISON hero = /images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp
@@ -87,26 +83,18 @@ export const zaiAssets = {
   },
 
   // ── HOUSE OF ZAI ────────────────────────────────────────
-  // ⚠️  ASSET LOCK: heroDesktop/heroMobile must ALWAYS point to
-  //     /images/zai/beaute/products/ZAINAB_BEAUTY_CLOSEUP_01.webp
-  //     Do NOT change without explicit instruction.
-  //     Do NOT derive from shared arrays, indexes, or fallbacks.
-  //     Beauté product migrations must never affect this value.
   house: {
-    // ── HOUSE SALON COMPOSITE — beauty services editorial image
     ritual01: `/images/zai/house/treatments/HOUSE_OF_ZAI_RITUAL_01.webp`,
-    // ── HOUSE PORTAL CARD — World page "HOUSE" card image
     portalCard01: `/images/zai/house/hero/HOUSE_OF_ZAI_BEAUTY_01.webp`,
-    // ── LOCKED HOUSE HERO — approved Zainab beauty closeup ──
-    heroDesktop: `/images/zai/beaute/products/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
-    heroMobile: `/images/zai/beaute/products/ZAINAB_BEAUTY_CLOSEUP_01.webp`,
-    // ── HOUSE SERVICE RESULT IMAGES — Bahrain salon content ──
+    heroDesktop: `/images/zai/house/treatments/HOUSE_OF_ZAI_RITUAL_01.webp`,
+    heroMobile: `/images/zai/house/treatments/HOUSE_OF_ZAI_RITUAL_01.webp`,
+    // ── HOUSE SERVICE RESULT IMAGES ──
     brows01: `/images/zai/house/brows/HOUSE_OF_ZAI_BROWS_01.webp`,
     lips01: `/images/zai/house/lips/HOUSE_OF_ZAI_LIPS_01.webp`,
     lashes01: `/images/zai/house/lashes/HOUSE_OF_ZAI_LASHES_01.webp`,
     lashes02: `/images/zai/house/lashes/HOUSE_OF_ZAI_LASH_LIFT_01.webp`,
     nails01: `/images/zai/house/nails/HOUSE_OF_ZAI_NAILS_01.webp`,
-    // ── HOUSE SALON INTERIOR — services hero shot (Journal) ──
+    // ── HOUSE SALON INTERIOR ──
     interior01: `/images/zai/house/hero/house_of_zai_beauty_services_hero_desktop.png`,
   },
 } as const;

@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { Variants,  motion, useInView, useScroll, useTransform } from 'framer-motion';
+import { Variants, motion, useInView } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 import ZaiImage from './ZaiImage';
@@ -25,14 +25,6 @@ export default function FounderSection() {
   const setView = useZaiStore((s) => s.setView);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-10%' });
-
-  // Parallax for wide divider image
-  const parallaxRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: parallaxRef,
-    offset: ['start end', 'end start'],
-  });
-  const parallaxY = useTransform(scrollYProgress, [0, 1], [60, -60]);
 
   return (
     <section className="w-full py-24 md:py-32 bg-zai-black">
@@ -108,47 +100,9 @@ export default function FounderSection() {
               Middle Eastern heritage meets international modernity.
             </motion.p>
 
-            {/* Two editorial portraits */}
-            <motion.div
-              variants={fadeUp}
-              className="grid grid-cols-2 gap-3 mt-8"
-            >
-              <ZaiImage
-                src={zaiAssets.zainab.editorialPortrait01}
-                brand="zai"
-                alt="Zainab Editorial Portrait 01"
-                width={400}
-                height={500}
-                className="w-full h-auto img-editorial"
-                style={{ aspectRatio: '4/5' }}
-              />
-              <ZaiImage
-                src={zaiAssets.zainab.editorialPortrait02}
-                brand="zai"
-                alt="Zainab Editorial Portrait 02"
-                width={400}
-                height={500}
-                className="w-full h-auto img-editorial"
-                style={{ aspectRatio: '4/5' }}
-              />
-            </motion.div>
           </motion.div>
         </div>
 
-        {/* Full-width editorial divider with parallax */}
-        <div ref={parallaxRef} className="mt-24 overflow-hidden">
-          <motion.div style={{ y: parallaxY }}>
-            <ZaiImage
-              src={zaiAssets.zainab.editorialWide01}
-              brand="zai"
-              alt="Zainab Editorial Wide"
-              width={2100}
-              height={900}
-              className="w-full h-auto"
-              style={{ aspectRatio: '21/9' }}
-            />
-          </motion.div>
-        </div>
 
         {/* CTA Button */}
         <motion.div variants={fadeUp} className="flex justify-center mt-16">

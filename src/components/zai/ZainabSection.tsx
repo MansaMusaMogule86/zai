@@ -48,7 +48,7 @@ export default function ZainabSection() {
         {/* Large Founder Image Filling Hero Area */}
         <div className="absolute inset-0 w-full h-full overflow-hidden bg-black">
           <img
-            src={zaiAssets.zainab.founderWide01}
+            src={zaiAssets.zainab.heroDesktop}
             alt="Zainab Al Alwan — Founder"
             className="w-full h-full object-cover object-[center_20%] md:object-center"
             fetchPriority="high"
