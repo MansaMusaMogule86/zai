@@ -42,8 +42,8 @@ export default function HeroSection() {
       className="relative min-h-screen w-full bg-zai-black overflow-hidden"
       aria-label="Hero"
     >
-      {/* Full-screen video background */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden">
+      {/* Full-screen video background — starts below navbar */}
+      <div className="absolute inset-0 top-20 w-full h-[calc(100%-5rem)] overflow-hidden">
         <video
           src={zaiAssets.zainab.heroVideo}
           poster={zaiAssets.zainab.heroDesktop}
@@ -52,19 +52,19 @@ export default function HeroSection() {
           loop
           playsInline
           preload="auto"
-          className="absolute inset-[-10%] w-[120%] h-[120%] object-contain object-center pointer-events-none select-none"
+          className="w-full h-full object-contain object-center pointer-events-none select-none"
         />
         {/* Dark overlay for text legibility */}
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Text overlay */}
-      <div className="relative z-10 flex items-center min-h-screen px-6 md:px-16 xl:px-24">
+      <div className="relative z-10 flex items-end min-h-screen px-6 md:px-16 xl:px-24 pb-16 md:pb-20">
         <motion.div
           variants={container}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="flex flex-col gap-5 md:gap-6 mt-20 md:mt-0"
+          className="flex flex-col gap-5 md:gap-6"
         >
           <motion.p
             variants={item}
