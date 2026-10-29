@@ -5,8 +5,6 @@ import { motion, useInView, Variants } from 'framer-motion';
 import { useZaiStore } from '@/lib/store';
 import { zaiAssets } from '@/lib/assets';
 
-// ── Stagger container ───────────────────────────────────────
-
 const container: Variants = {
   hidden: { opacity: 0 },
   visible: {
@@ -24,8 +22,6 @@ const item: Variants = {
   },
 };
 
-// ── Component ───────────────────────────────────────────────
-
 export default function HeroSection() {
   const { setView, setHasEnteredWorld } = useZaiStore();
   const ref = useRef<HTMLDivElement>(null);
@@ -39,32 +35,32 @@ export default function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen w-full bg-zai-black overflow-hidden"
+      className="relative w-full min-h-screen bg-zai-black overflow-hidden"
       aria-label="Hero"
     >
-      {/* Full-screen video background — starts below navbar */}
-      <div className="absolute inset-0 top-20 w-full h-[calc(100%-5rem)] overflow-hidden">
-        <video
-          src={zaiAssets.zainab.heroVideo}
-          poster={zaiAssets.zainab.heroDesktop}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="w-full h-full object-contain object-center pointer-events-none select-none"
-        />
-        {/* Dark overlay for text legibility */}
-        <div className="absolute inset-0 bg-black/40" />
-      </div>
+      {/* Video — fills the entire section as background */}
+      <video
+        src={zaiAssets.zainab.heroVideo}
+        poster={zaiAssets.zainab.heroDesktop}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+      />
 
-      {/* Text overlay */}
-      <div className="relative z-10 flex items-end min-h-screen px-6 md:px-16 xl:px-24 pb-16 md:pb-20">
+      {/* Dark gradient overlay — heavier on the left for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+
+      {/* Text content — left side, vertically centered, clear of navbar */}
+      <div className="relative z-10 flex items-center min-h-screen pt-24 pb-16 px-6 md:px-16 xl:px-24">
         <motion.div
           variants={container}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="flex flex-col gap-5 md:gap-6"
+          className="flex flex-col gap-5 md:gap-6 max-w-lg"
         >
           <motion.p
             variants={item}
@@ -111,7 +107,6 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Private digital concept label */}
       <span className="absolute bottom-4 left-4 z-10 text-[10px] tracking-editorial text-zai-ivory/20 font-body select-none pointer-events-none">
         PRIVATE DIGITAL CONCEPT
       </span>
