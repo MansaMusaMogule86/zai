@@ -107,34 +107,33 @@ export default function BeauteSection() {
       />
 
       {/* ═══ 1. BEAUTÉ HERO ═══════════════════════════════ */}
-      <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between">
-        {/* Full-screen hero image */}
-        <div className="absolute inset-0">
-          <picture className="block w-full h-full">
-            <source
-              media="(max-width: 767px)"
-              srcSet={zaiAssets.beaute.heroMobile}
-            />
-            <source
-              media="(min-width: 768px)"
-              srcSet={zaiAssets.beaute.heroDesktop}
-            />
-            <img
-              src={zaiAssets.beaute.heroDesktop}
-              alt="ZAI Beauté — Your skin. Your shade. Your Zai."
-              className="w-full h-full object-cover object-center"
-              fetchPriority="high"
-            />
-          </picture>
+      <section className="relative w-full overflow-hidden">
+        {/* Mobile: image in normal flow so it fits to screen without cropping */}
+        <div className="md:hidden">
+          <img
+            src={zaiAssets.beaute.heroMobile}
+            alt="ZAI Beauté — Your skin. Your shade. Your Zai."
+            className="w-full h-auto"
+            fetchPriority="high"
+          />
         </div>
 
-        {/* Bottom gradient for text readability */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-40 pointer-events-none z-[1]"
-          style={{
-            background: 'linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, transparent 100%)',
-          }}
-        />
+        {/* Desktop: full-viewport cover */}
+        <div className="hidden md:block relative min-h-screen">
+          <img
+            src={zaiAssets.beaute.heroDesktop}
+            alt="ZAI Beauté — Your skin. Your shade. Your Zai."
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            fetchPriority="high"
+          />
+          {/* Bottom gradient */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-40 pointer-events-none z-[1]"
+            style={{
+              background: 'linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, transparent 100%)',
+            }}
+          />
+        </div>
 
         {/* Back button */}
         <motion.button
@@ -148,15 +147,14 @@ export default function BeauteSection() {
           WORLD
         </motion.button>
 
-        {/* Accessible heading for SEO (branding and copy is embedded in high-res artwork) */}
         <h1 className="sr-only">ZAI Beauté — Your skin. Your shade. Your Zai.</h1>
 
-        {/* Hero actions positioned cleanly at the bottom without covering model or text */}
+        {/* Buttons centered below image on mobile, bottom overlay on desktop */}
         <motion.div
           variants={heroStagger}
           initial="hidden"
           animate="visible"
-          className="relative mt-auto px-6 pt-2 pb-10 md:p-12 lg:p-20 z-10 flex flex-wrap gap-3 items-end"
+          className="flex flex-col items-center gap-3 px-6 py-8 md:absolute md:bottom-0 md:inset-x-0 md:flex-row md:justify-center md:pb-12 md:pt-4 z-10"
         >
           <button onClick={scrollToProducts} className="btn-gold cursor-pointer">
             DISCOVER BEAUTÉ
