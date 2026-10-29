@@ -39,8 +39,7 @@ export default function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative w-full bg-zai-black overflow-hidden"
-      style={{ height: 'clamp(500px, 56.25vw, 100vh)' }}
+      className="relative min-h-screen w-full bg-zai-black overflow-hidden"
       aria-label="Hero"
     >
       {/* Full-screen video background */}
@@ -53,14 +52,14 @@ export default function HeroSection() {
           loop
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-contain object-bottom pointer-events-none select-none"
+          className="absolute inset-0 w-full h-full object-contain object-center pointer-events-none select-none"
         />
         {/* Dark overlay for text legibility */}
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Text overlay */}
-      <div className="relative z-10 flex items-center h-full px-6 md:px-16 xl:px-24">
+      <div className="relative z-10 flex items-center min-h-screen px-6 md:px-16 xl:px-24">
         <motion.div
           variants={container}
           initial="hidden"
