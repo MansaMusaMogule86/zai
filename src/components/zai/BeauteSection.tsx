@@ -210,12 +210,12 @@ export default function BeauteSection() {
             {/* Single strong oversized editorial card */}
             <motion.div
               variants={fadeUp}
-              className="relative w-full aspect-[4/5] sm:aspect-[16/9] overflow-hidden rounded-sm border border-zai-gold/15 shadow-2xl"
+              className="relative w-full aspect-[3/4] sm:aspect-[4/3] overflow-hidden rounded-sm border border-zai-gold/15 shadow-2xl"
             >
               <img
                 src={zaiAssets.beaute.campaignCloseup01}
                 alt="ZAI Beauté Campaign Editorial — Gloss Profile"
-                className="w-full h-full object-cover object-top"
+                className="w-full h-full object-cover object-center"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
