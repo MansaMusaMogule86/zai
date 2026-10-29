@@ -359,13 +359,13 @@ function ProductCard({ product, isExpanded, selectedShade, onToggle, onSelectSha
       {/* Collapsed view */}
       <motion.div layout="position" onClick={onToggle} className="cursor-pointer">
         {/* Product image */}
-        <div className="relative aspect-[3/4] overflow-hidden">
+        <div className="relative aspect-square overflow-hidden bg-zai-dark">
           <ZaiImage
             src={imgSrc}
             alt={product.name}
             brand="beaute"
             fill
-            className="object-cover"
+            className="object-contain p-4"
           />
         </div>
 
@@ -406,13 +406,13 @@ function ProductCard({ product, isExpanded, selectedShade, onToggle, onSelectSha
           >
             <div className="border-t border-zai-ivory/5 p-4 flex flex-col gap-4">
               {/* Larger image */}
-              <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
+              <div className="relative aspect-square overflow-hidden rounded-sm bg-zai-dark">
                 <ZaiImage
                   src={imgSrc}
                   alt={product.name}
                   brand="beaute"
                   fill
-                  className="object-cover"
+                  className="object-contain p-6"
                 />
               </div>
 
