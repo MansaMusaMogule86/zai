@@ -114,8 +114,9 @@ export default function MaisonSection() {
       />
 
       {/* ── 1. Hero ────────────────────────────────────────── */}
-      <div className="relative min-h-[80vh] md:min-h-[85vh] w-full overflow-hidden bg-black">
-        <picture className="absolute inset-0 md:top-20 w-full h-full">
+      {/* Desktop (lg+): two columns; the image sets the hero height so the full silhouette is never cropped */}
+      <div className="relative min-h-[80vh] md:min-h-[85vh] lg:min-h-0 lg:pt-20 w-full overflow-hidden bg-black lg:grid lg:grid-cols-[minmax(0,42fr)_minmax(0,58fr)] lg:items-center">
+        <picture className="absolute inset-0 md:top-20 lg:static lg:col-start-2 lg:row-start-1 w-full h-full">
           <source
             media="(max-width: 767px)"
             srcSet={zaiAssets.maison.heroMobile}
@@ -127,11 +128,11 @@ export default function MaisonSection() {
           <img
             src={zaiAssets.maison.heroDesktop}
             alt="ZAI Maison — Silhouette & Fashion"
-            className="w-full h-full object-contain object-center"
+            className="w-full h-full object-cover object-[center_15%] md:object-top lg:h-auto lg:object-contain lg:object-center"
             fetchPriority="high"
           />
         </picture>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent lg:hidden" />
         <motion.button
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -141,12 +142,15 @@ export default function MaisonSection() {
         >
           ← WORLD
         </motion.button>
-        <div className="absolute bottom-10 left-6 md:bottom-16 md:left-12 z-10">
+        <div className="absolute bottom-10 left-6 md:bottom-16 md:left-12 z-10 lg:static lg:col-start-1 lg:row-start-1 lg:self-center lg:py-24 lg:pl-12 lg:pr-10">
+          <p className="hidden lg:block mb-6 text-xs tracking-editorial text-zai-gold uppercase font-body">
+            ZAI MAISON
+          </p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="font-display text-5xl md:text-7xl text-zai-ivory"
+            className="font-display text-5xl md:text-7xl lg:text-[clamp(2.25rem,3.6vw,4.5rem)] text-zai-ivory"
           >
             MAISON 001
           </motion.h1>
@@ -158,6 +162,7 @@ export default function MaisonSection() {
           >
             {`AN IDEA BECOMES A LINE.\nA LINE BECOMES A SILHOUETTE.`}
           </motion.p>
+          <div className="hidden lg:block divider-gold w-16 mt-8" />
         </div>
       </div>
 

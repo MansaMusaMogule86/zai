@@ -61,8 +61,8 @@ export const zaiAssets = {
   // ── ZAI MAISON ──────────────────────────────────────────
   maison: {
     fashionFullbody01: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
-    heroDesktop: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
-    heroMobile: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
+    heroDesktop: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
+    heroMobile: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
     campaign01: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
     atelierHero01: `/images/zai/maison/atelier/ZAI_MAISON_PROCESS_ATELIER_01.webp`,
     moodboard01: `/images/zai/maison/sketches/ZAI_MAISON_PROCESS_SKETCH_01.webp`,
