@@ -31,7 +31,7 @@ export const zaiAssets = {
     founderPortrait01: `/images/zai/founder/portraits/ZAINAB_AL_ALWAN_FOUNDER_01.webp`,
     founderWide01: `/images/zai/founder/wide/ZAINAB_FOUNDER_WIDE_01.webp`,
     // ── Editorial trio — FounderSection + Journal ──────────
-    editorialPortrait01: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
+    editorialPortrait01: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
     editorialPortrait02: `/images/zai/hero/desktop/ZAINAB_HERO_DARK_DESKTOP_01.webp`,
     editorialWide01: `/images/zai/founder/wide/ZAINAB_FOUNDER_WIDE_01.webp`,
   },
@@ -63,7 +63,6 @@ export const zaiAssets = {
     fashionFullbody01: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
     heroDesktop: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
     heroMobile: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
-    campaign01: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
     atelierHero01: `/images/zai/maison/atelier/ZAI_MAISON_PROCESS_ATELIER_01.webp`,
     moodboard01: `/images/zai/maison/sketches/ZAI_MAISON_PROCESS_SKETCH_01.webp`,
     patternStudio01: `/images/zai/maison/patterns/ZAI_MAISON_PROCESS_PATTERN_01.webp`,
