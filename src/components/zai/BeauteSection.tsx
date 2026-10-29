@@ -210,7 +210,7 @@ export default function BeauteSection() {
             {/* Single strong oversized editorial card */}
             <motion.div
               variants={fadeUp}
-              className="relative max-w-4xl mx-auto aspect-[4/5] sm:aspect-[16/10] overflow-hidden rounded-sm border border-zai-gold/15 shadow-2xl"
+              className="relative w-full aspect-[4/5] sm:aspect-[16/9] overflow-hidden rounded-sm border border-zai-gold/15 shadow-2xl"
             >
               <img
                 src={zaiAssets.beaute.campaignCloseup01}
@@ -319,32 +319,28 @@ export default function BeauteSection() {
               THE LOOKS
             </motion.p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-              {[zaiAssets.beaute.look01, zaiAssets.beaute.look02].map((src, i) => (
-                <motion.div key={i} variants={fadeUp}>
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-sm">
-                    <ZaiImage
-                      src={src}
-                      alt={`ZAI Beauté look ${String(i + 1).padStart(2, '0')}`}
-                      brand="beaute"
-                      fill
-                      className="object-cover img-editorial"
-                    />
-                  </div>
-                  <div className="flex items-center justify-between mt-4">
-                    <p className="text-xs tracking-editorial text-zai-gold/60 font-body">
-                      LOOK {String(i + 1).padStart(2, '0')}
-                    </p>
-                    <button
-                      onClick={scrollToProducts}
-                      className="text-xs tracking-editorial text-zai-ivory/50 hover:text-zai-ivory/80 transition-colors duration-300 cursor-pointer font-body"
-                    >
-                      VIEW PRODUCTS
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            <motion.div variants={fadeUp} className="mt-8">
+              <div className="relative w-full aspect-[16/9] overflow-hidden rounded-sm">
+                <ZaiImage
+                  src={zaiAssets.beaute.look01}
+                  alt="ZAI Beauté — Shop The Look"
+                  brand="beaute"
+                  fill
+                  className="object-cover img-editorial"
+                />
+              </div>
+              <div className="flex items-center justify-between mt-4">
+                <p className="text-xs tracking-editorial text-zai-gold/60 font-body">
+                  LOOK 01
+                </p>
+                <button
+                  onClick={scrollToProducts}
+                  className="text-xs tracking-editorial text-zai-ivory/50 hover:text-zai-ivory/80 transition-colors duration-300 cursor-pointer font-body"
+                >
+                  VIEW PRODUCTS
+                </button>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
