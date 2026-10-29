@@ -52,7 +52,7 @@ export default function HeroSection() {
           loop
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-contain object-center pointer-events-none select-none"
+          className="absolute inset-[-10%] w-[120%] h-[120%] object-contain object-center pointer-events-none select-none"
         />
         {/* Dark overlay for text legibility */}
         <div className="absolute inset-0 bg-black/40" />
