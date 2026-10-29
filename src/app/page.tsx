@@ -1,6 +1,7 @@
 'use client';
 
 import { useZaiStore } from '@/lib/store';
+import OpeningSequence from '@/components/zai/OpeningSequence';
 import Navigation from '@/components/zai/Navigation';
 import MobileNavigation from '@/components/zai/MobileNavigation';
 import HeroSection from '@/components/zai/HeroSection';
@@ -28,6 +29,9 @@ export default function Home() {
       {/* Mobile Navigation Overlay */}
       <MobileNavigation />
 
+
+      {/* Opening Cinematic Sequence */}
+      <OpeningSequence />
 
       {/* Search Overlay */}
       <SearchOverlay />

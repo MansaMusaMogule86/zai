@@ -7,7 +7,7 @@ import { useZaiStore } from '@/lib/store';
 import { products, getShopUrl, type Product, type ProductShade } from '@/lib/products';
 import { zaiAssets } from '@/lib/assets';
 import ZaiImage from './ZaiImage';
-
+import BeauteIntro from './BeauteIntro';
 
 // ── Asset lookup ─────────────────────────────────────────────
 
@@ -95,6 +95,9 @@ export default function BeauteSection() {
 
   return (
     <div className="relative min-h-screen bg-zai-black">
+      {/* Beauté Intro Splash */}
+      <BeauteIntro />
+
       {/* Subtle cobalt radial glow top-right */}
       <div
         className="fixed top-0 right-0 w-[60vw] h-[60vh] pointer-events-none z-0"
@@ -104,11 +107,10 @@ export default function BeauteSection() {
       />
 
       {/* ═══ 1. BEAUTÉ HERO ═══════════════════════════════ */}
-      <section className="relative pt-20 md:pt-0 md:min-h-screen w-full overflow-hidden flex flex-col justify-between">
-        {/* Responsive campaign picture. Starts below the fixed 80px navbar so her hair isn't hidden behind it.
-            Mobile: shown uncropped in normal flow, with the actions below it so they never cover her face. */}
-        <div className="relative md:absolute md:inset-x-0 md:bottom-0 md:top-20">
-          <picture className="block w-full md:h-full">
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between">
+        {/* Full-screen hero image */}
+        <div className="absolute inset-0">
+          <picture className="block w-full h-full">
             <source
               media="(max-width: 767px)"
               srcSet={zaiAssets.beaute.heroMobile}
@@ -120,24 +122,17 @@ export default function BeauteSection() {
             <img
               src={zaiAssets.beaute.heroDesktop}
               alt="ZAI Beauté — Your skin. Your shade. Your Zai."
-              className="block w-full h-auto md:h-full object-cover object-[center_20%] md:object-[center_18%]"
+              className="w-full h-full object-cover object-center"
               fetchPriority="high"
             />
           </picture>
-          {/* Mobile: fade the image bottom into the actions area */}
-          <div
-            className="md:hidden absolute inset-x-0 bottom-0 h-24 pointer-events-none"
-            style={{
-              background: 'linear-gradient(to top, rgba(10, 10, 10, 1) 0%, transparent 100%)',
-            }}
-          />
         </div>
 
-        {/* Subtle dark transition gradient at the very bottom into the next section */}
+        {/* Bottom gradient for text readability */}
         <div
-          className="hidden md:block absolute inset-x-0 bottom-0 h-32 pointer-events-none"
+          className="absolute inset-x-0 bottom-0 h-40 pointer-events-none z-[1]"
           style={{
-            background: 'linear-gradient(to top, rgba(10, 10, 10, 0.85) 0%, transparent 100%)',
+            background: 'linear-gradient(to top, rgba(10, 10, 10, 0.9) 0%, transparent 100%)',
           }}
         />
 
