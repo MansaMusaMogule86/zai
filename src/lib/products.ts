@@ -287,7 +287,7 @@ export const journalArticles: JournalArticle[] = [
     category: "guides",
     date: "2025-01-10",
     readTime: "4 min",
-    assetKey: "beaute.productFoundation",
+    assetKey: "beaute.campaignCloseup01",
   },
   {
     id: "j3",
@@ -317,7 +317,7 @@ export const journalArticles: JournalArticle[] = [
     category: "beauty",
     date: "2025-01-20",
     readTime: "3 min",
-    assetKey: "beaute.productSunMist",
+    assetKey: "beaute.heroDesktop",
   },
   {
     id: "j6",
@@ -327,7 +327,7 @@ export const journalArticles: JournalArticle[] = [
     category: "looks",
     date: "2025-01-18",
     readTime: "4 min",
-    assetKey: "beaute.productLipstick",
+    assetKey: "beaute.look01",
   },
   {
     id: "j7",

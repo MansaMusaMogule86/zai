@@ -139,15 +139,13 @@ export default function JournalSection() {
                 onClick={() => setExpandedId(expandedId === feature.id ? null : feature.id)}
               >
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-                  <div className="overflow-hidden">
+                  <div className="relative overflow-hidden rounded-sm aspect-[4/5]">
                     <ZaiImage
                       src={getArticleImage(feature) ?? zaiAssets.zainab.editorialPortrait01}
                       brand="zai"
                       alt={feature.title}
-                      width={800}
-                      height={1000}
-                      className="w-full h-auto img-editorial"
-                      style={{ aspectRatio: '4/5' }}
+                      fill
+                      className="object-cover img-editorial"
                     />
                   </div>
                   <div className="flex flex-col justify-center">
@@ -207,15 +205,13 @@ export default function JournalSection() {
                     {isEven ? (
                       <>
                         {imgSrc && (
-                          <div className="overflow-hidden mb-4">
+                          <div className="relative overflow-hidden rounded-sm aspect-[4/5] mb-4">
                             <ZaiImage
                               src={imgSrc}
                               brand="zai"
                               alt={article.title}
-                              width={600}
-                              height={750}
-                              className="w-full h-auto img-editorial"
-                              style={{ aspectRatio: '4/5' }}
+                              fill
+                              className="object-cover img-editorial"
                             />
                           </div>
                         )}
@@ -237,15 +233,13 @@ export default function JournalSection() {
                     ) : (
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         {imgSrc && (
-                          <div className="overflow-hidden">
+                          <div className="relative overflow-hidden rounded-sm aspect-[4/5]">
                             <ZaiImage
                               src={imgSrc}
                               brand="zai"
                               alt={article.title}
-                              width={400}
-                              height={500}
-                              className="w-full h-auto img-editorial"
-                              style={{ aspectRatio: '4/5' }}
+                              fill
+                              className="object-cover img-editorial"
                             />
                           </div>
                         )}
