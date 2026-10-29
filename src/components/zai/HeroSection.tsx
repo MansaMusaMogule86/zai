@@ -39,7 +39,8 @@ export default function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative h-screen max-h-[900px] w-full bg-zai-black"
+      className="relative w-full bg-zai-black overflow-hidden"
+      style={{ height: 'clamp(500px, 56.25vw, 100vh)' }}
       aria-label="Hero"
     >
       {/* Full-screen video background */}
@@ -52,7 +53,7 @@ export default function HeroSection() {
           loop
           playsInline
           preload="auto"
-          className="absolute inset-0 w-full h-full object-cover object-bottom pointer-events-none select-none"
+          className="absolute inset-0 w-full h-full object-contain object-bottom pointer-events-none select-none"
         />
         {/* Dark overlay for text legibility */}
         <div className="absolute inset-0 bg-black/40" />
