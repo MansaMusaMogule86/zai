@@ -118,12 +118,12 @@ export default function BeauteSection() {
           />
         </div>
 
-        {/* Desktop: full-viewport cover */}
+        {/* Desktop: full-viewport cover, starting below the fixed 80px nav so it doesn't cover the model's head */}
         <div className="hidden md:block relative min-h-screen">
           <img
             src={zaiAssets.beaute.heroDesktop}
             alt="ZAI Beauté — Your skin. Your shade. Your Zai."
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-x-0 top-20 bottom-0 w-full h-auto object-cover object-center"
             fetchPriority="high"
           />
           {/* Bottom gradient */}

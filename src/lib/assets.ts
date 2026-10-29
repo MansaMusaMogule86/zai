@@ -31,7 +31,7 @@ export const zaiAssets = {
     founderPortrait01: `/images/zai/founder/portraits/ZAINAB_AL_ALWAN_FOUNDER_01.webp`,
     founderWide01: `/images/zai/founder/wide/ZAINAB_FOUNDER_WIDE_01.webp`,
     // ── Editorial trio — FounderSection + Journal ──────────
-    editorialPortrait01: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.png`,
+    editorialPortrait01: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
     editorialPortrait02: `/images/zai/hero/desktop/ZAINAB_HERO_DARK_DESKTOP_01.webp`,
     editorialWide01: `/images/zai/founder/wide/ZAINAB_FOUNDER_WIDE_01.webp`,
   },
@@ -61,9 +61,9 @@ export const zaiAssets = {
   // ── ZAI MAISON ──────────────────────────────────────────
   maison: {
     fashionFullbody01: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
-    heroDesktop: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
-    heroMobile: `/images/zai/maison/editorial/ZAINAB_FASHION_FULLBODY_01.webp`,
-    campaign01: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.png`,
+    heroDesktop: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
+    heroMobile: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
+    campaign01: `/images/zai/maison/editorial/zai_maison_black_coat_editorial_desktop.webp`,
     atelierHero01: `/images/zai/maison/atelier/ZAI_MAISON_PROCESS_ATELIER_01.webp`,
     moodboard01: `/images/zai/maison/sketches/ZAI_MAISON_PROCESS_SKETCH_01.webp`,
     patternStudio01: `/images/zai/maison/patterns/ZAI_MAISON_PROCESS_PATTERN_01.webp`,
@@ -95,7 +95,7 @@ export const zaiAssets = {
     lashes02: `/images/zai/house/lashes/HOUSE_OF_ZAI_LASH_LIFT_01.webp`,
     nails01: `/images/zai/house/nails/HOUSE_OF_ZAI_NAILS_01.webp`,
     // ── HOUSE SALON INTERIOR ──
-    interior01: `/images/zai/house/hero/house_of_zai_beauty_services_hero_desktop.png`,
+    interior01: `/images/zai/house/hero/house_of_zai_beauty_services_hero_desktop.webp`,
   },
 } as const;
 

@@ -110,7 +110,8 @@ export default function HouseSection() {
 
       {/* ── 1. HOUSE HERO ──────────────────────────────── */}
       <div className="relative w-full overflow-hidden bg-black min-h-[75vh] md:min-h-[80vh]">
-        <picture className="absolute inset-0 w-full h-full">
+        {/* Desktop: starts below the fixed 80px nav so the face is not covered */}
+        <picture className="absolute inset-0 md:top-20 w-full h-full">
           <source
             media="(max-width: 767px)"
             srcSet={zaiAssets.house.heroMobile}

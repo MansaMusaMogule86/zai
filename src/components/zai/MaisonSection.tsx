@@ -115,7 +115,7 @@ export default function MaisonSection() {
 
       {/* ── 1. Hero ────────────────────────────────────────── */}
       <div className="relative min-h-[80vh] md:min-h-[85vh] w-full overflow-hidden bg-black">
-        <picture className="absolute inset-0 w-full h-full">
+        <picture className="absolute inset-0 md:top-20 w-full h-full">
           <source
             media="(max-width: 767px)"
             srcSet={zaiAssets.maison.heroMobile}
@@ -127,7 +127,7 @@ export default function MaisonSection() {
           <img
             src={zaiAssets.maison.heroDesktop}
             alt="ZAI Maison — Silhouette & Fashion"
-            className="w-full h-full object-cover object-[center_15%] md:object-top"
+            className="w-full h-full object-contain object-center"
             fetchPriority="high"
           />
         </picture>
