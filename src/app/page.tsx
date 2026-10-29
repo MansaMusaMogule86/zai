@@ -3,7 +3,6 @@
 import { useZaiStore } from '@/lib/store';
 import Navigation from '@/components/zai/Navigation';
 import MobileNavigation from '@/components/zai/MobileNavigation';
-import OpeningSequence from '@/components/zai/OpeningSequence';
 import HeroSection from '@/components/zai/HeroSection';
 import WorldPortals from '@/components/zai/WorldPortals';
 import ShopTheLook from '@/components/zai/ShopTheLook';
@@ -29,8 +28,6 @@ export default function Home() {
       {/* Mobile Navigation Overlay */}
       <MobileNavigation />
 
-      {/* Opening Cinematic Sequence */}
-      <OpeningSequence />
 
       {/* Search Overlay */}
       <SearchOverlay />

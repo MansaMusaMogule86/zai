@@ -35,11 +35,11 @@ export default function HeroSection() {
   return (
     <section
       ref={ref}
-      className="w-full bg-zai-black"
+      className="w-full bg-zai-black pt-20"
       aria-label="Hero"
     >
-      {/* Video — full width, below navbar, shows entire video */}
-      <div className="w-full pt-20">
+      {/* Video — contained, centered, shows full body */}
+      <div className="w-full flex justify-center px-4 md:px-8">
         <video
           src={zaiAssets.zainab.heroVideo}
           poster={zaiAssets.zainab.heroDesktop}
@@ -48,7 +48,7 @@ export default function HeroSection() {
           loop
           playsInline
           preload="auto"
-          className="w-full h-auto max-h-[75vh] object-cover object-top"
+          className="w-auto h-[70vh] md:h-[80vh] max-w-full object-contain rounded-sm"
         />
       </div>
 

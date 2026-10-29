@@ -8,7 +8,6 @@ import { products, getShopUrl, type Product, type ProductShade } from '@/lib/pro
 import { zaiAssets } from '@/lib/assets';
 import ZaiImage from './ZaiImage';
 
-import BeauteIntro from './BeauteIntro';
 
 // ── Asset lookup ─────────────────────────────────────────────
 
@@ -96,9 +95,6 @@ export default function BeauteSection() {
 
   return (
     <div className="relative min-h-screen bg-zai-black">
-      {/* 3D Logo Intro Sequence */}
-      <BeauteIntro />
-
       {/* Subtle cobalt radial glow top-right */}
       <div
         className="fixed top-0 right-0 w-[60vw] h-[60vh] pointer-events-none z-0"
