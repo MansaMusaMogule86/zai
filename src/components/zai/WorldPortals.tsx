@@ -21,7 +21,7 @@ interface PortalDef {
 const portals: PortalDef[] = [
   {
     id: 'beaute',
-    image: zaiAssets.beaute.heroDesktop,
+    image: zaiAssets.beaute.campaignCloseup01,
     brand: 'beaute',
     label: 'BEAUTÉ',
     tagline: 'Beauty becomes identity.',

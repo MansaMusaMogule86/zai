@@ -64,8 +64,10 @@ export interface MirrorResult {
 
 export const useZaiStore = create<ZaiState>((set) => ({
   view: "home",
-  setView: (v) =>
-    set((s) => ({ prevView: s.view, view: v })),
+  setView: (v) => {
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    set((s) => ({ prevView: s.view, view: v }));
+  },
   prevView: "home",
 
   hasSeenOpening: false,
