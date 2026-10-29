@@ -38,8 +38,8 @@ export default function HeroSection() {
       className="w-full bg-zai-black pt-20"
       aria-label="Hero"
     >
-      {/* Video — contained, centered, shows full body */}
-      <div className="w-full flex justify-center px-4 md:px-8">
+      {/* Video — full-width on mobile, contained on desktop */}
+      <div className="w-full flex justify-center md:px-8">
         <video
           src={zaiAssets.zainab.heroVideo}
           poster={zaiAssets.zainab.heroDesktop}
@@ -48,7 +48,7 @@ export default function HeroSection() {
           loop
           playsInline
           preload="auto"
-          className="w-auto h-[70vh] md:h-[80vh] max-w-full object-contain rounded-sm"
+          className="w-full h-auto object-cover md:w-auto md:h-[80vh] md:max-w-full md:object-contain rounded-none md:rounded-sm"
         />
       </div>
 
@@ -87,7 +87,7 @@ export default function HeroSection() {
           Created by Zainab Al Alwan
         </motion.p>
 
-        <motion.div variants={item} className="flex flex-wrap gap-4 mt-4">
+        <motion.div variants={item} className="flex flex-wrap justify-center gap-4 mt-4">
           <button
             onClick={handleEnterWorld}
             className="btn-gold cursor-pointer"
