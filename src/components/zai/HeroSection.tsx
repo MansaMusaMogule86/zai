@@ -35,81 +35,73 @@ export default function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative w-full min-h-screen bg-zai-black overflow-hidden"
+      className="w-full bg-zai-black"
       aria-label="Hero"
     >
-      {/* Video — fills the entire section as background */}
-      <video
-        src={zaiAssets.zainab.heroVideo}
-        poster={zaiAssets.zainab.heroDesktop}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
-      />
-
-      {/* Dark gradient overlay — heavier on the left for text legibility */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-black/20 pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
-
-      {/* Text content — left side, vertically centered, clear of navbar */}
-      <div className="relative z-10 flex items-center min-h-screen pt-24 pb-16 px-6 md:px-16 xl:px-24">
-        <motion.div
-          variants={container}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="flex flex-col gap-5 md:gap-6 max-w-lg"
-        >
-          <motion.p
-            variants={item}
-            className="text-xs tracking-editorial text-zai-gold/50 font-body uppercase"
-          >
-            THE WORLD OF ZAI
-          </motion.p>
-
-          <motion.div variants={item} className="divider-gold" />
-
-          <div className="flex flex-col gap-1">
-            {['BEAUTY.', 'FASHION.', 'RITUAL.'].map((word) => (
-              <motion.h2
-                key={word}
-                variants={item}
-                className="font-display text-5xl xl:text-7xl text-zai-ivory tracking-wide leading-[1.1]"
-              >
-                {word}
-              </motion.h2>
-            ))}
-          </div>
-
-          <motion.p
-            variants={item}
-            className="text-sm text-zai-ivory/50 font-body mt-2"
-          >
-            Created by Zainab Al Alwan
-          </motion.p>
-
-          <motion.div variants={item} className="flex flex-wrap gap-4 mt-4">
-            <button
-              onClick={handleEnterWorld}
-              className="btn-gold cursor-pointer"
-            >
-              ENTER THE WORLD
-            </button>
-            <button
-              onClick={() => setView('mirror')}
-              className="btn-luxury cursor-pointer"
-            >
-              FIND MY ZAI
-            </button>
-          </motion.div>
-        </motion.div>
+      {/* Video — full width, below navbar, shows entire video */}
+      <div className="w-full pt-20">
+        <video
+          src={zaiAssets.zainab.heroVideo}
+          poster={zaiAssets.zainab.heroDesktop}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-auto max-h-[75vh] object-cover object-top"
+        />
       </div>
 
-      <span className="absolute bottom-4 left-4 z-10 text-[10px] tracking-editorial text-zai-ivory/20 font-body select-none pointer-events-none">
-        PRIVATE DIGITAL CONCEPT
-      </span>
+      {/* Text — centered below the video */}
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        className="flex flex-col items-center text-center gap-5 md:gap-6 px-6 py-12 md:py-16"
+      >
+        <motion.p
+          variants={item}
+          className="text-xs tracking-editorial text-zai-gold/50 font-body uppercase"
+        >
+          THE WORLD OF ZAI
+        </motion.p>
+
+        <motion.div variants={item} className="divider-gold w-12" />
+
+        <div className="flex flex-col gap-1">
+          {['BEAUTY.', 'FASHION.', 'RITUAL.'].map((word) => (
+            <motion.h2
+              key={word}
+              variants={item}
+              className="font-display text-5xl xl:text-7xl text-zai-ivory tracking-wide leading-[1.1]"
+            >
+              {word}
+            </motion.h2>
+          ))}
+        </div>
+
+        <motion.p
+          variants={item}
+          className="text-sm text-zai-ivory/50 font-body mt-2"
+        >
+          Created by Zainab Al Alwan
+        </motion.p>
+
+        <motion.div variants={item} className="flex flex-wrap gap-4 mt-4">
+          <button
+            onClick={handleEnterWorld}
+            className="btn-gold cursor-pointer"
+          >
+            ENTER THE WORLD
+          </button>
+          <button
+            onClick={() => setView('mirror')}
+            className="btn-luxury cursor-pointer"
+          >
+            FIND MY ZAI
+          </button>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }
